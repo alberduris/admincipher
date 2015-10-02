@@ -2,15 +2,11 @@ package org.admincipher;
 
 
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class Esteganografia {
 	private BufferedImage imagen;
@@ -22,10 +18,10 @@ public class Esteganografia {
 		alto = imagen.getHeight();
 		ancho = imagen.getWidth();
 		mensaje = pMensaje;
-		cambiar(7-pBit+1);
+		esconder(8-pBit);
 		ImageIO.write(imagen, "jpg", new File("foto.jpg"));
 	}
-	public void cambiar(int pBit){
+	public void esconder(int pBit){
 		int k = 0;
 		int t = 2;
 		int p = 0;
@@ -35,12 +31,13 @@ public class Esteganografia {
 				int RGB = imagen.getRGB(j,i);
 				Color c = new Color(RGB);
 				if(t == 2){
-					numero = calcularASCII(mensaje.charAt(k));
+					numero = convBinario(mensaje.charAt(k));
 					k++;
 					p = 0;
 				}
 				int R = c.getRed();
-				if(numero[p] == 1 && p<8){
+				System.out.println("p:" + p);
+				if(numero[p] == 1){
 					System.out.println("P: " + R);
 					int[] red = new int[8];
 					red = convBinario(R);
@@ -55,7 +52,7 @@ public class Esteganografia {
 				}
 				p++;
 				int G = c.getGreen();
-				if(numero[p] == 1 && p<8){
+				if(numero[p] == 1){
 					int[] green = new int[8];
 					green = convBinario(R);
 					if(green[pBit] == 1){
@@ -67,7 +64,7 @@ public class Esteganografia {
 				}
 				p++;
 				int B = c.getBlue();
-				if(numero[p] == 1 && p<8){
+				if(p<8 && numero[p] == 1){
 					int[] blue = new int[8];
 					blue = convBinario(R);
 					if(blue[pBit] == 1){
@@ -81,29 +78,12 @@ public class Esteganografia {
 				Color col = new Color(R, G, B);
 				imagen.setRGB(j, i, col.getRGB());
 				t--;
-				if(t==0){
+				if(t<0){
 					t = 2;
 				}
 			}
 		}
 	}
-	
-	private int[] calcularASCII(int numero){
-		int[] res = new int[8];
-		int a, pos = 0;
-		a = numero;
-		while(a>=2){
-			res[pos] = a%2;
-			if(a == 2){
-				res[pos] = 1;
-			}else if(a == 3){
-				res[pos] =0;
-			}
-			a = a/2;
-		}
-		return res;
-	}
-	
 	public int[] convBinario(int numero){
 		
 		int[] res = new int[8]; 
@@ -122,63 +102,9 @@ public class Esteganografia {
 				k++;
 			}
 		}
-		for(int i=0; i<res.length; i++){
-			System.out.println(res[i]);;
-		}
 		return res;
 		
 	}
-	
-	public int[] conversionBinario(int numero){
-		int[] res = new int[8];
-		int a, pos = 0;
-		a = numero;
-		if(numero<128){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 64){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 32){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 16){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 8){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 4){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 2){
-			res[pos] = 0;
-			pos++;
-		}
-		if(numero < 1){
-			res[pos] = 0;
-			pos++;
-		}
-		
-		while(a>=2){
-			res[pos] = a%2;
-			if(a == 2){
-				res[pos] = 1;
-			}else if(a == 3){
-				res[pos] =0;
-			}
-			a = a/2;
-		}
-		
-		return res;
-	}
-	
 	private int calcularRGB(int[] pNum){
 		int numero = 0;
 		int k = 7;
@@ -190,7 +116,7 @@ public class Esteganografia {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Esteganografia es = new Esteganografia("Ace-and-Luffy.jpg", "HOLA ALBERTO", 8);
+		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "HOLA ALBERTO", 8);
 		
 	}
 }
