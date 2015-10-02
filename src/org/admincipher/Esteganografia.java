@@ -81,6 +81,6 @@ public class Esteganografia {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Esteganografia es = new Esteganografia("Ace-and-Luffy.jpg", "s");
+		Esteganografia es = new Esteganografia("Ace-and-Luffy.jpg", "HOLA ALBERTO");
 	}
 }
