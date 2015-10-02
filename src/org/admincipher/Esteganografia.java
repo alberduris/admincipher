@@ -19,7 +19,7 @@ public class Esteganografia {
 		ancho = imagen.getWidth();
 		mensaje = pMensaje;
 		esconder(8-pBit);
-		ImageIO.write(imagen, "jpg", new File("foto.jpg"));
+		ImageIO.write(imagen, "bmp", new File("foto.bmp"));
 	}
 	public void esconder(int pBit){
 		int k = 0;
@@ -36,9 +36,7 @@ public class Esteganografia {
 					p = 0;
 				}
 				int R = c.getRed();
-				System.out.println("p:" + p);
 				if(numero[p] == 1){
-					System.out.println("P: " + R);
 					int[] red = new int[8];
 					red = convBinario(R);
 					if(red[pBit] == 1){
@@ -47,14 +45,12 @@ public class Esteganografia {
 						red[pBit] = 1;
 					}
 					R = calcularRGB(red);
-
-					System.out.println("S: " + R);
 				}
 				p++;
 				int G = c.getGreen();
 				if(numero[p] == 1){
 					int[] green = new int[8];
-					green = convBinario(R);
+					green = convBinario(G);
 					if(green[pBit] == 1){
 						green[pBit] = 0;
 					}else{
@@ -64,9 +60,10 @@ public class Esteganografia {
 				}
 				p++;
 				int B = c.getBlue();
+				System.out.println("B:"+B);
 				if(p<8 && numero[p] == 1){
 					int[] blue = new int[8];
-					blue = convBinario(R);
+					blue = convBinario(B);
 					if(blue[pBit] == 1){
 						blue[pBit] = 0;
 					}else{
@@ -74,6 +71,7 @@ public class Esteganografia {
 					}
 					B = calcularRGB(blue);
 				}
+				System.out.println("BO:"+B);
 				p++;	
 				Color col = new Color(R, G, B);
 				imagen.setRGB(j, i, col.getRGB());
@@ -116,7 +114,7 @@ public class Esteganografia {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "HOLA ALBERTO", 8);
+		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "ABCDEFGHIJK", 8);
 		
 	}
 }
