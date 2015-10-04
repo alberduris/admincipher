@@ -12,14 +12,16 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import org.admincipher.descifrarKasiski;
-import org.admincipher.descifrar_Vigenere;
+import org.admincipher.DescifrarKasiski;
+import org.admincipher.Vigenere;
 
 public class VistaVigenere extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -219,7 +221,13 @@ public class VistaVigenere extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				//COGER TEXTO Y CLAVE Y CIFRAR
+				Vigenere dV = Vigenere.getDescifrarVigenere();
+				dV.introducirTexto(texto.getText());
+				dV.introducirClave(clave.getText());
+				JDialog jD = new JDialog();
+				jD.add(new JTextArea(dividirTexto(dV.cifrar())));
+				jD.setSize(500, 500);
+				jD.setVisible(true);
 			}
 
 			@Override
@@ -425,8 +433,9 @@ public class VistaVigenere extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				centro.removeAll();
 				sur.removeAll();
-				crearBotones();
-				centro.updateUI();
+				centro.setLayout(new GridLayout(7,3));
+				crearDescifrar();
+				centro.updateUI();		
 			}
 
 			@Override
@@ -460,10 +469,13 @@ public class VistaVigenere extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				descifrar_Vigenere dV = descifrar_Vigenere.getDescifrarVigenere();
+				Vigenere dV = Vigenere.getDescifrarVigenere();
 				dV.introducirTexto(texto.getText());
 				dV.introducirClave(clave.getText());
-				System.out.println(dV.descifrar());//	dV.descifrar();
+				JDialog jD = new JDialog();
+				jD.add(new JTextArea(dividirTexto(dV.descifrar())));
+				jD.setSize(500, 500);
+				jD.setVisible(true);
 			}
 
 			@Override
@@ -496,6 +508,17 @@ public class VistaVigenere extends JFrame {
 			sur.add(new JLabel());
 		}
 	}	
+	
+	private String dividirTexto(String pTexto){
+		String texto = "";
+		for(int i=0; i<pTexto.length(); i++){
+			if(i % 50 == 0){
+				texto += "\n";
+			}
+			texto += pTexto.charAt(i);
+		}
+		return texto;
+	}
 	
 	private void crearDescifrarKasiski(){
 		JTextField texto;
@@ -537,8 +560,9 @@ public class VistaVigenere extends JFrame {
 			public void mousePressed(MouseEvent e) {
 				centro.removeAll();
 				sur.removeAll();
-				crearBotones();
-				centro.updateUI();
+				centro.setLayout(new GridLayout(7,3));
+				crearDescifrar();
+				centro.updateUI();		
 			}
 
 			@Override
@@ -572,10 +596,10 @@ public class VistaVigenere extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				descifrarKasiski dK = descifrarKasiski.getKasiski();
+				DescifrarKasiski dK = DescifrarKasiski.getKasiski();
 				dK.introducirTexto(texto.getText());
 				dK.introducirTamanoClave(Integer.parseInt(clave.getText()));
-				crearJDialog(dK.sacarClave());
+				crearjDialog(dK.sacarClave());
 			}
 
 			@Override
@@ -609,28 +633,78 @@ public class VistaVigenere extends JFrame {
 		}
 	}	
 	
-	//	WEDFM     LHRRV     WCODE     JBORC     WLIEK     VHIEN     MWASV     WFEED     WFUIS  GXSKB     SGGLV     SWOEK     VBEYK     TBAVX     LKAUY     WGLRM     SLAZX     VNDRL     DXMVX   LXNRN     AXYRE     FJUVO     DWOTD     GKDFB     EBATY     FXLSK     DVOEK     TBEID     GIOIR   AZIVX     WXRRD     SGACD     GLUGS     KHQLO     FHEIK     VXSLZ     GGEIA     MXPFB     SELZR  MUIVC     WXNKB     SWOVV     SLEJS     FHLRZ     GEITS     SGOVX     UHNKB     SUACK     HBSKK  VXAHE     WECIS  EXNPI     SBBRK     SUAEN     GGAIO     DTSLX     LHCLK     FWOCK     WLPFC    SRLRM     JBAUK     VXLDE     WKTFK     UNDZO     JHNUO     KIAMY     JBDRC     SEAAO     XTTLB   SLACD     SGDFN     WEORV     LHDVE     FTRDK     JBOYK     TBATK     AWOJY     TKECK     EXSRV  SLHRL     ATMZB     SWOCK     KAASS     SOIJD     GRDVC     HNEJR     SUIRR     MBDFZ     GKLRR  SUIKK     UBOEE     FTMRX     GLOCS     LTRZK     QOIMK     UHMFE     FTAIK     FTACV     AEAYK    TBAEN     WCAUY    WGCVB     JTDRM     GGLCK     NXEEO     DVURB     LHLCO     FTDVD   WKRFB     SVUUS     GEAGY     DBCZK     QXLAE     WSEIK     KNDVL     WKTIK     TTJFV     WLCFC   LHCRJ     SKLRW     SGOGO     JHLRM     SSAIY     FRTFN     GLLVK     YTRIK     JHNLX     VXDFZ   GKQLO     WKAMS     YHRFC     SVOIX     GLIVX     WELRB     SWITK     KXJLX     LTTFN     SEAWE    WKZRN     WNNYY     EURVP     MXRKO     INEYK     UXRTY     FXLCK     INECE     RBBRK     SKRFT   SKSFL     JXECC     MVEJY     UHMFC     WGTVX     UBAIV     SWEHE     AXNVB     STQLO     DEADK  FHDVC     HNEJN     WNNRV     SKGRZ     SNSRK     DCUVJ     KXLVY     UNRIS     GWAIV     WEAGV    MFAGK     JTQLO     VXCCK     JTSVZ     GKEJM     JBTFV     SFAEY     WGTFX     UXSVC     UKISS  GLOPV     SFAEY     VXRRW     AKOIE     ASAJO     KBNRN     GOICW     WGTVZ     GKECN     GVTFB   WGECR     GLPZD     SEYUO     KMRFJ     SWOTY     FXNJK     FTMZO     FMOVX     DTSRV     SWEUS  KXCTS     GGHVR     WVHFT     MLTZM  ATRVV     SMOKS     LNLRN     GEADK     FHEJM     JBTFZ   GKRRW     GGGFW     WSDVV     SLEIX     S 
-
-	
-	private void crearJDialog(int[][] pFrecuencias){
+	private void crearjDialog(int[][] pFrecuencias){
 		JDialog jD = new JDialog();
-		jD.setLayout(new GridLayout(pFrecuencias.length+1,pFrecuencias[0].length));
-		JLabel jL;
+		JPanel jP = new JPanel();
+		jD.add(new JPanel(), "North");
+		jP.setLayout(new GridLayout(pFrecuencias.length+1,pFrecuencias[0].length));
+		JLabel[][] jL= new JLabel[pFrecuencias.length][pFrecuencias[0].length];
 		jD.setSize(pFrecuencias[0].length*50, pFrecuencias.length*100);
 		for(int i=0; i<pFrecuencias[0].length;i++){
-			jL = new JLabel(String.valueOf(Character.toChars(65+i)));
-			jL.setBorder(LineBorder.createBlackLineBorder());
-			jL.setHorizontalAlignment(WIDTH/2);
-			jD.add(jL);
+			JLabel jLab = new JLabel(String.valueOf(Character.toChars(65+i)));
+			jLab.setBorder(LineBorder.createBlackLineBorder());
+			jLab.setHorizontalAlignment(WIDTH/2);
+			jP.add(jLab);
 		}
 		for(int k =0; k<pFrecuencias.length;k++){
 			for(int i=0; i<pFrecuencias[k].length;i++){
-				jL = new JLabel(pFrecuencias[k][i]+"");
-				jL.setBorder(LineBorder.createBlackLineBorder());
-				jL.setHorizontalAlignment(WIDTH/2);
-				jD.add(jL);
+				jL[k][i] = new JLabel(pFrecuencias[k][i]+"");
+				jL[k][i].setBorder(LineBorder.createBlackLineBorder());
+				jL[k][i].setHorizontalAlignment(WIDTH/2);
 			}
 		}
+		int[] max1 ;
+		int[] max2 ;
+		int[] max3 ;
+		
+		for(int i=0; i<pFrecuencias.length; i++){
+			max1 = DescifrarKasiski.getKasiski().sacarMax(pFrecuencias[i], -1);
+			max2 = DescifrarKasiski.getKasiski().sacarMax(pFrecuencias[i], max1[0]);
+			max3 = DescifrarKasiski.getKasiski().sacarMax(pFrecuencias[i], max2[0]);		
+			for(int j=0;j<max1.length; j++){
+				jL[i][max1[j]].setBackground(Color.green);
+				jL[i][max1[j]].setOpaque(true);
+			}
+			for(int j=0;j<max2.length; j++){
+				jL[i][max2[j]].setBackground(Color.red);
+				jL[i][max2[j]].setOpaque(true);
+			}
+			for(int j=0;j<max3.length; j++){
+				jL[i][max3[j]].setBackground(Color.blue);
+				jL[i][max3[j]].setOpaque(true);
+			}
+		}
+		for(int i=0; i<pFrecuencias.length; i++){
+			for(int j=0;j<pFrecuencias[i].length; j++){
+				jP.add(jL[i][j]);
+			}
+		}
+		jD.add(jP);
+		JPanel sur = new JPanel();
+		sur.setLayout(new GridLayout(1,10));
+		JLabel jLab = new JLabel();
+		jLab.setBackground(Color.green);
+		jLab.setOpaque(true);
+		sur.add(jLab);
+		sur.add( new JLabel());
+		sur.add(new JLabel("1ºFrecuencia"));
+		sur.add(new JLabel());
+		jLab = new JLabel();
+		jLab.setBackground(Color.red);
+		jLab.setOpaque(true);
+		sur.add(jLab);
+		sur.add( new JLabel());
+		sur.add(new JLabel("2ºFrecuencia"));
+		sur.add(new JLabel());
+		jLab = new JLabel();
+		jLab.setBackground(Color.blue);
+		jLab.setOpaque(true);
+		sur.add(jLab);
+		sur.add( new JLabel());
+		sur.add(new JLabel("3ºFrecuencia"));
+		sur.add(new JLabel());
+		
+		jD.add(sur, "South");
 		jD.setVisible(true);
 		
 	}
