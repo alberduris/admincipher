@@ -76,52 +76,55 @@ public class VentanaPrincipal extends JFrame {
 		GridBagLayout gridBagLayout1 = new GridBagLayout();
 		GridBagLayout gridBagLayout2 = new GridBagLayout();
 		
+		panelOcultar = new JPanel();
+		panelMostrar = new JPanel();
+		
 		contentPane.add(panelOcultar);
 		contentPane.add(panelMostrar);
 		
 		
 		//Label Ruta
 		lblRutaOcultar = new JLabel("Ruta: ");
-		contentPane.add(lblRutaOcultar);
+		panelOcultar.add(lblRutaOcultar);
 		
 		lblRutaMostrar = new JLabel("Ruta: ");
-		contentPane.add(lblRutaMostrar);
+		panelMostrar.add(lblRutaMostrar);
 		
 		//TextField ruta
 		txtRutaOcultar = new JTextField();
-		contentPane.add(txtRutaOcultar);
+		panelOcultar.add(txtRutaOcultar);
 		
 		txtRutaMostrar = new JTextField();
-		contentPane.add(txtRutaMostrar);
+		panelMostrar.add(txtRutaMostrar);
 	
 		
 		//Label bit
 		lblBitOcultar = new JLabel("Bit: ");
-		contentPane.add(lblBitOcultar);
+		panelOcultar.add(lblBitOcultar);
 					
 		lblBitMostrar = new JLabel("Bit: ");
-		contentPane.add(lblBitMostrar);
+		panelMostrar.add(lblBitMostrar);
 		
 		//Spinner bit
 		spinnerBitOcultar = new JSpinner();
-		contentPane.add(spinnerBitOcultar);
+		panelOcultar.add(spinnerBitOcultar);
 		spinnerBitMostrar = new JSpinner();
-		contentPane.add(spinnerBitMostrar);
+		panelMostrar.add(spinnerBitMostrar);
 		
 		//Label mensaje
 		lblMensaje = new JLabel("Mensaje: ");
-		contentPane.add(lblMensaje);
+		panelOcultar.add(lblMensaje);
 		
 		//TextField mensaje
 		txtMensaje = new JTextField("TextField mensaje");
-		contentPane.add(txtMensaje);
+		panelOcultar.add(txtMensaje);
 		
 		//Botones
 		btnOcultar = new JButton("Ocultar");
-		contentPane.add(btnOcultar);
+		panelOcultar.add(btnOcultar);
 		
 		btnMostrar = new JButton("Mostrar");
-		contentPane.add(btnMostrar);
+		panelMostrar.add(btnMostrar);
 		
 		
 		
