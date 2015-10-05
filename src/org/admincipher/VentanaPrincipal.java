@@ -8,6 +8,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -194,6 +197,17 @@ public class VentanaPrincipal extends JFrame {
 		cBtnOcultar.fill = GridBagConstraints.HORIZONTAL;
 		cBtnOcultar.gridx = 0;
 		cBtnOcultar.gridy = 3;
+		
+		btnOcultar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ocultar();
+				
+			}
+			
+		});
+		
 		panelOcultar.add(btnOcultar,cBtnOcultar);
 	}
 
@@ -329,6 +343,20 @@ public class VentanaPrincipal extends JFrame {
 		cLblRutaOcultar.gridx = 0;
 		cLblRutaOcultar.gridy = 0;
 		panelOcultar.add(lblRutaOcultar,cLblRutaOcultar);
+	}
+	
+	private void ocultar(){
+		String rutaOcultar = txtRutaOcultar.getText();
+		String mensaje = txtMensaje.getText();
+		int bit = (int) spinnerBitOcultar.getValue();
+		System.out.println("Ruta: "+rutaOcultar+"\nMensaje: "+mensaje+"\nBit: "+bit);
+		
+		try {
+			Esteganografia es = new Esteganografia(rutaOcultar,mensaje,bit+1);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
