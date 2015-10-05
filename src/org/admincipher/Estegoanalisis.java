@@ -32,6 +32,7 @@ public class Estegoanalisis {
 				Color cO = new Color(RGBOriginal);
 				int R = c.getRed();
 				int RO = cO.getRed();
+				System.out.println("R: "+R +" : " + RO);
 				if(R == RO){
 					numero[p] = 0;
 				}else{
@@ -40,21 +41,25 @@ public class Estegoanalisis {
 				p++;
 				int G = c.getGreen();
 				int GO = cO.getGreen();
+				System.out.println("G: "+ G +" : " + GO);
 				if(G == GO){
 					numero[p] = 0;
 				}else{
 					numero[p] = 1;
 				}
 				p++;
+				System.out.println(p);
 				if(p < 7){
 					int B = c.getBlue();
 					int BO = cO.getBlue();
+					System.out.println("B: "+B +" : " + BO);
 					if(B == BO){
 						numero[p] = 0;
 					}else{
 						System.out.println(B + ":" +BO);
 						numero[p] = 1;
 					}
+					p++;
 				}else{
 					if(!terminar(numero)){
 						fin = true;

@@ -27,7 +27,7 @@ public class Esteganografia {
 		int p = 0;
 		int[] numero = new int[8];
 		
-		for(int i = 0; i<alto && k<mensaje.length(); i++){
+		for(int i = 0; i<alto  && k<mensaje.length(); i++){
 			for(int j = 0; j<ancho && k<mensaje.length(); j++){
 				int RGB = imagen.getRGB(j,i);
 				Color c = new Color(RGB);
@@ -35,10 +35,10 @@ public class Esteganografia {
 					numero = convBinario(mensaje.charAt(k));
 					System.out.println("Letra: "+mensaje.charAt(k)+"\nLetra en binario: "+
 					numero[0]+numero[1]+numero[2]+numero[3]+numero[4]+numero[5]+numero[6]+numero[7]);
-					k++;
 					p = 0;
 				}
 				int R = c.getRed();
+				System.out.println("R:"+R);
 				if(numero[p] == 1){
 					int[] red = new int[8];
 					red = convBinario(R);
@@ -49,8 +49,10 @@ public class Esteganografia {
 					}
 					R = calcularRGB(red);
 				}
+				System.out.println("R:"+R);
 				p++;
 				int G = c.getGreen();
+				System.out.println("G:"+G);
 				if(numero[p] == 1){
 					int[] green = new int[8];
 					green = convBinario(G);
@@ -61,6 +63,7 @@ public class Esteganografia {
 					}
 					G = calcularRGB(green);
 				}
+				System.out.println("G:"+G);
 				p++;
 				int B = c.getBlue();
 				System.out.println("B:"+B);
@@ -81,6 +84,7 @@ public class Esteganografia {
 				t--;
 				if(t<0){
 					t = 2;
+					k++;
 				}
 			}
 		}
@@ -117,7 +121,7 @@ public class Esteganografia {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "z", 8);
+		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ HOLA", 8);
 		
 	}
 }
