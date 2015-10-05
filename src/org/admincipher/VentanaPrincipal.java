@@ -248,9 +248,9 @@ public class VentanaPrincipal extends JFrame {
 		spinnerBitMostrar = new JSpinner();
 		
 		SpinnerNumberModel model =
-		        new SpinnerNumberModel(0, //initial value
-		                               0, //min
-		                               7, //max
+		        new SpinnerNumberModel(1, //initial value
+		                               1, //min
+		                               8, //max
 		                               1);                //step
 		spinnerBitMostrar.setModel(model);
 		
@@ -266,9 +266,9 @@ public class VentanaPrincipal extends JFrame {
 		spinnerBitOcultar = new JSpinner();
 		
 		SpinnerNumberModel model =
-		        new SpinnerNumberModel(0, //initial value
-		                               0, //min
-		                               7, //max
+		        new SpinnerNumberModel(1, //initial value
+		                               1, //min
+		                               8, //max
 		                               1);                //step
 		spinnerBitOcultar.setModel(model);
 		
