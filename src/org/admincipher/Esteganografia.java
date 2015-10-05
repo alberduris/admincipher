@@ -26,12 +26,15 @@ public class Esteganografia {
 		int t = 2;
 		int p = 0;
 		int[] numero = new int[8];
+		
 		for(int i = 0; i<alto && k<mensaje.length(); i++){
 			for(int j = 0; j<ancho && k<mensaje.length(); j++){
 				int RGB = imagen.getRGB(j,i);
 				Color c = new Color(RGB);
 				if(t == 2){
 					numero = convBinario(mensaje.charAt(k));
+					System.out.println("Letra: "+mensaje.charAt(k)+"\nLetra en binario: "+
+					numero[0]+numero[1]+numero[2]+numero[3]+numero[4]+numero[5]+numero[6]+numero[7]);
 					k++;
 					p = 0;
 				}
@@ -114,7 +117,7 @@ public class Esteganografia {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "ABCDEFGHIJK", 8);
+		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "z", 8);
 		
 	}
 }

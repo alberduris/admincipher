@@ -249,8 +249,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		SpinnerNumberModel model =
 		        new SpinnerNumberModel(0, //initial value
-		                               0, //min
-		                               7, //max
+		                               1, //min
+		                               8, //max
 		                               1);                //step
 		spinnerBitMostrar.setModel(model);
 		
@@ -267,8 +267,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		SpinnerNumberModel model =
 		        new SpinnerNumberModel(0, //initial value
-		                               0, //min
-		                               7, //max
+		                               1, //min
+		                               8, //max
 		                               1);                //step
 		spinnerBitOcultar.setModel(model);
 		
@@ -352,7 +352,7 @@ public class VentanaPrincipal extends JFrame {
 		System.out.println("Ruta: "+rutaOcultar+"\nMensaje: "+mensaje+"\nBit: "+bit);
 		
 		try {
-			Esteganografia es = new Esteganografia(rutaOcultar,mensaje,bit+1);
+			Esteganografia es = new Esteganografia(rutaOcultar,mensaje,bit);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
