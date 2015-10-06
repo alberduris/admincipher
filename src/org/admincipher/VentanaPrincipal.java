@@ -428,11 +428,7 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	
-private void getDialogErrorNombre(){
-		
-		
-		
-	}
+
 	
 	private void ocultar(){
 		String rutaOcultar = txtRutaOcultar.getText();
