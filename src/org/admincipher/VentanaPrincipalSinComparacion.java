@@ -363,12 +363,12 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		int bit = (int) spinnerBitOcultar.getValue();
 		System.out.println("Ruta: "+rutaOcultar+"\nMensaje: "+mensaje+"\nBit: "+bit);
 		
-		try {
-			 new Esteganografia(rutaOcultar,mensaje,bit);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+
+		
+			
+			
+		
 	}
 	
 	private void mostrar() {
