@@ -85,10 +85,25 @@ public class EsteganografiaSinComp {
 	  }
 	  
 	  return hayMensaje;
-		  
-
-	  
+		 
   }
+	
+	
+	
+	/*
+	 * @post: Devuelve un string con el mensaje obtenido a partir del array con el mensaje en 
+	 * binario
+	 */
+	private String getMensajeDeArrayBinario(String [] arrayBinario){
+		String mensaje = "";
+		
+		for(int i = 4; i < arrayBinario.length; i++){
+			mensaje = mensaje + getCaracterEnFormaDeString(arrayBinario[i]);
+		}
+		
+		return mensaje;
+	}
+	
 		
 	/*
 	 * @post: Devuelve el caracter, en forma de String, del String en binario que se pasa
