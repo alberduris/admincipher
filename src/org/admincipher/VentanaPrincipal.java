@@ -186,6 +186,18 @@ public class VentanaPrincipal extends JFrame {
 		cBtnMostrar.fill = GridBagConstraints.HORIZONTAL;
 		cBtnMostrar.gridx = 0;
 		cBtnMostrar.gridy = 3;
+		
+		btnMostrar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				mostrar();
+				
+			}
+
+			
+		});
+		
 		panelMostrar.add(btnMostrar,cBtnMostrar);
 	}
 
@@ -352,11 +364,17 @@ public class VentanaPrincipal extends JFrame {
 		System.out.println("Ruta: "+rutaOcultar+"\nMensaje: "+mensaje+"\nBit: "+bit);
 		
 		try {
-			Esteganografia es = new Esteganografia(rutaOcultar,mensaje,bit);
+			 new Esteganografia(rutaOcultar,mensaje,bit);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	private void mostrar() {
+		String rutaMostrar = txtRutaMostrar.getText();
+		int bit = (int) spinnerBitMostrar.getValue();
+		
 	}
 
 }
