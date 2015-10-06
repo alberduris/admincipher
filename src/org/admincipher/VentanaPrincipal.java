@@ -2,24 +2,17 @@ package org.admincipher;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,7 +21,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
@@ -436,12 +428,10 @@ public class VentanaPrincipal extends JFrame {
 		int bit = (int) spinnerBitOcultar.getValue();
 		System.out.println("Ruta: "+rutaOcultar+"\nMensaje: "+mensaje+"\nBit: "+bit);
 		
-		try {
-			 new Esteganografia(rutaOcultar,mensaje,bit);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		Esteganografia es = new Esteganografia();
+    	es.metodoPrincipalOcultar(rutaOcultar,mensaje,bit);
+		
 	}
 	
 	private void mostrar() {
@@ -450,7 +440,7 @@ public class VentanaPrincipal extends JFrame {
 		int bit = (int) spinnerBitMostrar.getValue();
 		
 		Estegoanalisis es = new Estegoanalisis();
-		String mensaje = es.metodoPrincipal(rutaMostrar,rutaOriginalMostrar,bit);
+		String mensaje = es.metodoPrincipalMostrar(rutaMostrar,rutaOriginalMostrar,bit);
 		crearDialogMensajeOculto(mensaje);
 		
 		

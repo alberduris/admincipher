@@ -17,7 +17,7 @@ public class Estegoanalisis {
 	}
 	
 		
-	public String metodoPrincipal (String pRuta, String pRutaOriginal, int pBit){
+	public String metodoPrincipalMostrar (String pRuta, String pRutaOriginal, int pBit){
 		try {
 			imagen = ImageIO.read(new File(pRuta));
 		} catch (IOException e) {
@@ -136,7 +136,7 @@ public class Estegoanalisis {
 	
 	public static void main(String[] args) throws IOException {
 		Estegoanalisis es = new Estegoanalisis();
-		es.metodoPrincipal("foto.bmp", "Ace-and-Luffy.bmp", 8);
+		es.metodoPrincipalMostrar("foto.bmp", "Ace-and-Luffy.bmp", 8);
 		
 	}
 }

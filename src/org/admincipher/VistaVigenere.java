@@ -1,27 +1,21 @@
 package org.admincipher;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JDialog;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
-import org.admincipher.DescifrarKasiski;
-import org.admincipher.Vigenere;
 
 public class VistaVigenere extends JFrame {
 	private static final long serialVersionUID = 1L;
