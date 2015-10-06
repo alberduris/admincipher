@@ -12,14 +12,31 @@ public class Estegoanalisis {
 	private String mensaje = "";
 	private int alto, ancho;
 	
-	public Estegoanalisis(String pRuta, String pRutaOriginal, int pBit) throws IOException{
-		imagen = ImageIO.read(new File(pRuta));
-		imagenOriginal = ImageIO.read(new File(pRutaOriginal));
+	public Estegoanalisis(){
+		
+	}
+	
+		
+	public String metodoPrincipal (String pRuta, String pRutaOriginal, int pBit){
+		try {
+			imagen = ImageIO.read(new File(pRuta));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			imagenOriginal = ImageIO.read(new File(pRutaOriginal));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		alto = imagen.getHeight();
 		ancho = imagen.getWidth();
 		sacarConOriginal(8-pBit);
-		System.out.println(mensaje);
+		return mensaje;
 	}
+	
+	
 	public void sacarConOriginal(int pBit){
 		int p = 0;
 		int[] numero = new int[8];
@@ -32,7 +49,7 @@ public class Estegoanalisis {
 				Color cO = new Color(RGBOriginal);
 				int R = c.getRed();
 				int RO = cO.getRed();
-				System.out.println("R: "+R +" : " + RO);
+				
 				if(convBinario(R)[pBit] == convBinario(RO)[pBit]){
 					numero[p] = 0;
 				}else{
@@ -41,22 +58,22 @@ public class Estegoanalisis {
 				p++;
 				int G = c.getGreen();
 				int GO = cO.getGreen();
-				System.out.println("G: "+ G +" : " + GO);
+				
 				if(convBinario(G)[pBit] == convBinario(GO)[pBit]){
 					numero[p] = 0;
 				}else{
 					numero[p] = 1;
 				}
 				p++;
-				System.out.println(p);
+				
 				if(p < 7){
 					int B = c.getBlue();
 					int BO = cO.getBlue();
-					System.out.println("B: "+B +" : " + BO);
+					
 					if(convBinario(B)[pBit] == convBinario(BO)[pBit]){
 						numero[p] = 0;
 					}else{
-						System.out.println(B + ":" +BO);
+						
 						numero[p] = 1;
 					}
 					p++;
@@ -65,11 +82,11 @@ public class Estegoanalisis {
 						fin = true;
 					}else{
 						mensaje += String.valueOf(Character.toChars(calcularASCII(numero)));
-						System.out.print("LETRA: ");
+						
 						for(int m = 0; m<8; m++){
-							System.out.print(numero[m]);
+							
 						}
-						System.out.println();
+						
 					}
 					p = 0;
 				}
@@ -118,7 +135,8 @@ public class Estegoanalisis {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Estegoanalisis es = new Estegoanalisis("foto.bmp", "Ace-and-Luffy.bmp", 8);
+		Estegoanalisis es = new Estegoanalisis();
+		es.metodoPrincipal("foto.bmp", "Ace-and-Luffy.bmp", 8);
 		
 	}
 }

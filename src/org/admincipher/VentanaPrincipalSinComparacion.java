@@ -2,7 +2,6 @@ package org.admincipher;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -11,15 +10,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,11 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipalSinComparacion extends JFrame {
 
 	/**
 	 * 
@@ -49,12 +42,10 @@ public class VentanaPrincipal extends JFrame {
 	private JLabel lblTitulo;
 	
 	private JLabel lblRutaOcultar;
-	private JLabel lblRutaOriginalMostrar;
 	private JLabel lblRutaMostrar;
 	
 	private JTextField txtRutaOcultar;
 	private JTextField txtRutaMostrar;
-	private JTextField txtRutaOriginalMostrar;
 	
 	private JLabel lblBitOcultar;
 	private JLabel lblBitMostrar;
@@ -63,14 +54,12 @@ public class VentanaPrincipal extends JFrame {
 	private JSpinner spinnerBitMostrar;
 	
 	private JLabel lblMensaje;
-	
+	private JLabel lblRelleno;
 	
 	private JTextField txtMensaje;
 	
 	private JButton btnOcultar;
 	private JButton btnMostrar;
-	
-	private JDialog dialogMensajeOculto;
 
 	/**
 	 * Launch the application.
@@ -79,7 +68,7 @@ public class VentanaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
+					VentanaPrincipalSinComparacion frame = new VentanaPrincipalSinComparacion();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -91,7 +80,7 @@ public class VentanaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaPrincipal() {
+	public VentanaPrincipalSinComparacion() {
 		
 		//OPCIONES DE VENTANA
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -154,9 +143,8 @@ public class VentanaPrincipal extends JFrame {
 		
 		crearSpinnerBitMostrar();
 		
-		//Label ruta original mostrar
-		crearLblRutaOriginalMostrar();
-		crearTxtRutaOriginalMostrar();
+		//Label vacio
+		crearLblRelleno();
 		
 		//Label mensaje
 		crearLblMensaje();
@@ -258,13 +246,14 @@ public class VentanaPrincipal extends JFrame {
 		panelOcultar.add(lblMensaje,cLblMensaje);
 	}
 
-	private void crearLblRutaOriginalMostrar() {
-		lblRutaOriginalMostrar = new JLabel("Ruta original:");
+	private void crearLblRelleno() {
+		lblRelleno = new JLabel();
 		GridBagConstraints cLblRelleno = new GridBagConstraints();
-		cLblRelleno.ipady = 15;
+		cLblRelleno.ipady = 7;
+		cLblRelleno.insets = new Insets(20, 0, 0, 0);
 		cLblRelleno.gridx = 0;
-		cLblRelleno.gridy = 0;
-		panelMostrar.add(lblRutaOriginalMostrar, cLblRelleno);
+		cLblRelleno.gridy = 2;
+		panelMostrar.add(lblRelleno, cLblRelleno);
 	}
 
 	private void crearSpinnerBitMostrar() {
@@ -307,7 +296,7 @@ public class VentanaPrincipal extends JFrame {
 	private void crearLblBitMostrar() {
 		lblBitMostrar = new JLabel("Bit: ");
 		GridBagConstraints cLblBitMostrar = new GridBagConstraints();
-		cLblBitMostrar.ipady = 10;
+		cLblBitMostrar.ipady = 15;
 		cLblBitMostrar.gridx = 0;
 		cLblBitMostrar.gridy = 1;
 		panelMostrar.add(lblBitMostrar,cLblBitMostrar);
@@ -328,7 +317,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		cTxtRutaMostrar.weightx = 1;
 		cTxtRutaMostrar.gridx = 1;
-		cTxtRutaMostrar.gridy = 2;
+		cTxtRutaMostrar.gridy = 0;
 		cTxtRutaMostrar.fill = GridBagConstraints.HORIZONTAL;
 		panelMostrar.add(txtRutaMostrar,cTxtRutaMostrar);
 	}
@@ -352,19 +341,8 @@ public class VentanaPrincipal extends JFrame {
 		cLblRutaMostrar.weightx = 0.5;
 		cLblRutaMostrar.anchor = GridBagConstraints.CENTER;
 		cLblRutaMostrar.gridx = 0;
-		cLblRutaMostrar.gridy = 2;
+		cLblRutaMostrar.gridy = 0;
 		panelMostrar.add(lblRutaMostrar,cLblRutaMostrar);
-	}
-	
-	private void crearTxtRutaOriginalMostrar() {
-		txtRutaOriginalMostrar = new JTextField();
-		GridBagConstraints cTxtRutaMostrarOriginal = new GridBagConstraints();
-		
-		cTxtRutaMostrarOriginal.weightx = 1;
-		cTxtRutaMostrarOriginal.gridx = 1;
-		cTxtRutaMostrarOriginal.gridy = 0;
-		cTxtRutaMostrarOriginal.fill = GridBagConstraints.HORIZONTAL;
-		panelMostrar.add(txtRutaOriginalMostrar,cTxtRutaMostrarOriginal);
 	}
 
 	private void crearLblRutaOcultar() {
@@ -377,61 +355,6 @@ public class VentanaPrincipal extends JFrame {
 		cLblRutaOcultar.gridx = 0;
 		cLblRutaOcultar.gridy = 0;
 		panelOcultar.add(lblRutaOcultar,cLblRutaOcultar);
-	}
-	
-	private void crearDialogMensajeOculto(String mensajeOculto){
-		GridBagConstraints csTexto = new GridBagConstraints();
-		GridBagConstraints csBoton = new GridBagConstraints();
-		
-		csTexto.weighty = 1;
-		csTexto.gridx = 0;
-		csTexto.gridy = 0;
-		
-		csBoton.weighty = 1;
-		csBoton.gridx = 0;
-		csBoton.gridy = 1;
-		
-		JLabel texto = new JLabel();
-		
-		if(mensajeOculto.equalsIgnoreCase("")){
-			texto.setText("No hay mensaje oculto");
-		}
-		else{ 
-			texto.setText(mensajeOculto);
-		}
-		
-		JButton boton = new JButton("Cerrar");
-		
-		boton.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dialogMensajeOculto.dispose();
-			}
-			
-		});
-		
-		dialogMensajeOculto = new JDialog();
-		dialogMensajeOculto.setSize(300,125);
-		dialogMensajeOculto.setModal(false);
-		dialogMensajeOculto.setVisible(true);
-		dialogMensajeOculto.setLocationRelativeTo(contentPane);
-		dialogMensajeOculto.setTitle("Mensaje oculto");
-		
-		
-		dialogMensajeOculto.setLayout(new GridBagLayout());
-		dialogMensajeOculto.getContentPane().setBackground(new Color(0xFFFFFF));
-	
-
-		dialogMensajeOculto.add(texto,csTexto);
-		dialogMensajeOculto.add(boton,csBoton);
-		
-	}
-	
-private void getDialogErrorNombre(){
-		
-		
-		
 	}
 	
 	private void ocultar(){
@@ -449,17 +372,11 @@ private void getDialogErrorNombre(){
 	}
 	
 	private void mostrar() {
-		String rutaOriginalMostrar = txtRutaOriginalMostrar.getText();
 		String rutaMostrar = txtRutaMostrar.getText();
 		int bit = (int) spinnerBitMostrar.getValue();
 		
-		Estegoanalisis es = new Estegoanalisis();
-		String mensaje = es.metodoPrincipal(rutaMostrar,rutaOriginalMostrar,bit);
-		crearDialogMensajeOculto(mensaje);
-		
+	
 		
 	}
-	
-	
 
 }
