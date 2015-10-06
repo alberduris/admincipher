@@ -33,7 +33,7 @@ public class Estegoanalisis {
 				int R = c.getRed();
 				int RO = cO.getRed();
 				System.out.println("R: "+R +" : " + RO);
-				if(R == RO){
+				if(convBinario(R)[pBit] == convBinario(RO)[pBit]){
 					numero[p] = 0;
 				}else{
 					numero[p] = 1;
@@ -42,7 +42,7 @@ public class Estegoanalisis {
 				int G = c.getGreen();
 				int GO = cO.getGreen();
 				System.out.println("G: "+ G +" : " + GO);
-				if(G == GO){
+				if(convBinario(G)[pBit] == convBinario(GO)[pBit]){
 					numero[p] = 0;
 				}else{
 					numero[p] = 1;
@@ -53,7 +53,7 @@ public class Estegoanalisis {
 					int B = c.getBlue();
 					int BO = cO.getBlue();
 					System.out.println("B: "+B +" : " + BO);
-					if(B == BO){
+					if(convBinario(B)[pBit] == convBinario(BO)[pBit]){
 						numero[p] = 0;
 					}else{
 						System.out.println(B + ":" +BO);

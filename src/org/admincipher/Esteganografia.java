@@ -121,7 +121,7 @@ public class Esteganografia {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ HOLA", 8);
+		Esteganografia es = new Esteganografia("Ace-and-Luffy.bmp", "BEÑAT HOLA HHHOOLLA", 8);
 		
 	}
 }
