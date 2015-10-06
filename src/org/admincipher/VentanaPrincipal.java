@@ -375,6 +375,13 @@ public class VentanaPrincipal extends JFrame {
 		String rutaMostrar = txtRutaMostrar.getText();
 		int bit = (int) spinnerBitMostrar.getValue();
 		
+		try {
+			 new Estegoanalisis("foto.bmp",rutaMostrar,bit);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }
