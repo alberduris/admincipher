@@ -37,7 +37,7 @@ public class Estegoanalisis {
 	}
 	
 	
-	public void sacarConOriginal(int pBit){
+	private void sacarConOriginal(int pBit){
 		int p = 0;
 		int[] numero = new int[8];
 		boolean fin = false;
@@ -103,7 +103,7 @@ public class Estegoanalisis {
 		return fin;
 	}
 	
-	public int[] convBinario(int numero){
+	private int[] convBinario(int numero){
 		
 		int[] res = new int[8]; 
 		char[] aux = new char[0];

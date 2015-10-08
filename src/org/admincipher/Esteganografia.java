@@ -37,7 +37,7 @@ public class Esteganografia {
 		
 	}
 	
-	public void esconder(int pBit){
+	private void esconder(int pBit){
 		int k = 0;
 		int t = 2;
 		int p = 0;
@@ -104,7 +104,7 @@ public class Esteganografia {
 			}
 		}
 	}
-	public int[] convBinario(int numero){
+	private int[] convBinario(int numero){
 		
 		int[] res = new int[8]; 
 		char[] aux = new char[0];

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class EsteganografiaSinComp {
+public class EsteganografiaSC {
 
 	// Flag que indica si la imagen contiene mensaje oculto
 	private String flag = "fl";
@@ -27,7 +27,7 @@ public class EsteganografiaSinComp {
 	// Contador
 	private int cont = 0;
 
-	public EsteganografiaSinComp() {
+	public EsteganografiaSC() {
 		// Constructora vacia
 	}
 
@@ -477,7 +477,7 @@ public class EsteganografiaSinComp {
 	
 	public static void main(String [] args){
 		
-		EsteganografiaSinComp es = new EsteganografiaSinComp();
+		EsteganografiaSC es = new EsteganografiaSC();
 		
 		es.ocultarMensaje("C:\\Users\\Alber\\git\\admincipher\\Ace-and-Luffy.bmp", "Dime que funciona con el bit 3", 3);
 		
