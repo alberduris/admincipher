@@ -101,6 +101,7 @@ public class EsteganografiaSinComp {
 		
 		//Se genera la nueva imagen con el mensaje oculto
 		generarImagen(foto);
+		reset();
 		
 	}
 	
@@ -193,6 +194,7 @@ public class EsteganografiaSinComp {
 			msgOriginal = "No hay mensaje oculto";
 		}
 
+		
 		return msgOriginal;
 
 	}
@@ -451,13 +453,35 @@ public class EsteganografiaSinComp {
 
 	}
 	
+	private void reset(){
+		// Flag que indica si la imagen contiene mensaje oculto
+		flag = "fl";
+
+		// Tamaño del mensaje + flag + tamaño propio
+		longitud = 0;
+
+		// Imagen
+		BufferedImage foto = null;
+		red = 0;
+		green = 0; 
+		blue= 0;
+		color = null;
+
+		// Mensaje
+		msgBinario = "";
+		msgOriginal = "";
+
+		// Contador
+		cont = 0;
+	}
+	
 	public static void main(String [] args){
 		
 		EsteganografiaSinComp es = new EsteganografiaSinComp();
 		
-		es.ocultarMensaje("Ace-and-Luffy.bmp", "Dime que funciona con el bit 3", 3);
+		es.ocultarMensaje("C:\\Users\\Alber\\git\\admincipher\\Ace-and-Luffy.bmp", "Dime que funciona con el bit 3", 3);
 		
-		es.extraerMensaje("fotoSC.bmp", 3);
+		es.extraerMensaje("C:\\Users\\Alber\\git\\admincipher\\fotoSC.bmp", 3);
 		
 		System.out.println(es.msgOriginal);
 		

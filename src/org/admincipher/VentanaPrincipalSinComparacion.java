@@ -11,10 +11,11 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,6 +25,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 
@@ -32,6 +35,9 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 	/**
 	 * 
 	 */
+	
+	private EsteganografiaSinComp estSC = new EsteganografiaSinComp();
+	
 	private static final long serialVersionUID = 1L;
 
 	private JPanel contentPane;
@@ -66,6 +72,11 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 	private JButton btnExaminarOcultar;
 	private JButton btnExaminarMostrar;
 	private JFileChooser fileChooser;
+	
+	private JDialog dialogMensajeOculto;
+	
+	private String absolutePathOcultar;
+	private String absolutePathMostrar;
 
 	/**
 	 * Launch the application.
@@ -166,6 +177,8 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		crearBtnExaminarOcultar();
 		
 		crearBtnExaminarMostrar();
+		
+		crearFileChooser();
 		
 		
 		
@@ -327,6 +340,7 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 
 	private void crearTxtRutaMostrar() {
 		txtRutaMostrar = new JTextField();
+		txtRutaMostrar.setEditable(false);
 		GridBagConstraints cTxtRutaMostrar = new GridBagConstraints();
 		
 		cTxtRutaMostrar.weightx = 1;
@@ -338,6 +352,7 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 
 	private void crearTxtRutaOcultar() {
 		txtRutaOcultar = new JTextField();
+		txtRutaOcultar.setEditable(false);
 		GridBagConstraints cTxtRutaOcultar = new GridBagConstraints();
 		
 		cTxtRutaOcultar.weightx = 1;
@@ -381,6 +396,16 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		cBtnExaminarOcultar.gridx = 0;
 		cBtnExaminarOcultar.gridy = 1;
 		
+		btnExaminarOcultar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				absolutePathOcultar = escogerImagenOcultar();
+			}
+			
+		});
+		
 		panelOcultar.add(btnExaminarOcultar,cBtnExaminarOcultar);
 		
 	}
@@ -395,20 +420,59 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		cBtnExaminarMostrar.gridx = 0;
 		cBtnExaminarMostrar.gridy = 1;
 		
+		btnExaminarMostrar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				absolutePathMostrar = escogerImagenMostrar();
+			}
+			
+		});
+		
 		panelMostrar.add(btnExaminarMostrar,cBtnExaminarMostrar);
 		
 	}
 	
 	private void crearFileChooser(){
-		fileChooser = new JFileChooser();
-		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+		String userDir = System.getProperty("user.home");
+		fileChooser = new JFileChooser(userDir+"/Desktop");
+		FileFilter imageFilter = new FileNameExtensionFilter(
+			    "Image files", ImageIO.getReaderFileSuffixes());
+		fileChooser.setFileFilter(imageFilter);
+	}
+	
+	private String escogerImagenOcultar() {
+		int result = fileChooser.showOpenDialog(btnExaminarOcultar);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			txtRutaOcultar.setText(selectedFile.getName());
+			return selectedFile.getAbsolutePath(); 
+		}
+		
+		return "";
+	}
+	
+	private String escogerImagenMostrar() {
+		int result = fileChooser.showOpenDialog(btnExaminarMostrar);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
+			txtRutaMostrar.setText(selectedFile.getName());
+			return selectedFile.getAbsolutePath();
+		}
+		
+		return "";
 	}
 	
 	private void ocultar(){
-		String rutaOcultar = txtRutaOcultar.getText();
-		String mensaje = txtMensaje.getText();		
 		
-
+		//estSC = new EsteganografiaSinComp();
+		
+		String mensaje = txtMensaje.getText();
+		int bit = (int) spinnerBitOcultar.getValue();
+		
+		
+		
+		estSC.ocultarMensaje(absolutePathOcultar, mensaje, bit);
 		
 			
 			
@@ -416,10 +480,67 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 	}
 	
 	private void mostrar() {
-		String rutaMostrar = txtRutaMostrar.getText();
+		
+		//estSC = new EsteganografiaSinComp();
+		
 		int bit = (int) spinnerBitMostrar.getValue();
+		String resultado;
+		
+		resultado = estSC.extraerMensaje(absolutePathMostrar, bit);
+		System.out.println(absolutePathMostrar);
+		crearDialogMensajeOculto(resultado);
+		
 		
 	
+		
+	}
+	
+	private void crearDialogMensajeOculto(String mensajeOculto){
+		GridBagConstraints csTexto = new GridBagConstraints();
+		GridBagConstraints csBoton = new GridBagConstraints();
+		
+		csTexto.weighty = 1;
+		csTexto.gridx = 0;
+		csTexto.gridy = 0;
+		
+		csBoton.weighty = 1;
+		csBoton.gridx = 0;
+		csBoton.gridy = 1;
+		
+		JLabel texto = new JLabel();
+		
+		if(mensajeOculto.equalsIgnoreCase("")){
+			texto.setText("No hay mensaje oculto");
+		}
+		else{ 
+			texto.setText(mensajeOculto);
+		}
+		
+		JButton boton = new JButton("Cerrar");
+		
+		boton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dialogMensajeOculto.dispose();
+			}
+			
+		});
+		
+		dialogMensajeOculto = new JDialog();
+		dialogMensajeOculto.setSize(300,125);
+		dialogMensajeOculto.setModal(false);
+		dialogMensajeOculto.setVisible(true);
+		dialogMensajeOculto.setLocationRelativeTo(contentPane);
+		dialogMensajeOculto.setTitle("Mensaje oculto");
+		
+		
+		dialogMensajeOculto.setLayout(new GridBagLayout());
+		dialogMensajeOculto.getContentPane().setBackground(new Color(0xFFFFFF));
+	
+
+		dialogMensajeOculto.add(texto,csTexto);
+		dialogMensajeOculto.add(boton,csBoton);
 		
 	}
 
