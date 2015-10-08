@@ -46,14 +46,14 @@ public class EsteganografiaSC {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	
 		int contAux = 0;
-
+	
 		// Se crea el mensaje encapsulando todo
 		crearMensaje(mensaje);
 		
 		//OK <-- AQUI LLEGA EL MENSAJE BIEN
-
+	
 		// Creamos la imagen
 		/*
 		 * @doc: TYPE_IN_RGB: Represents an image with 8-bit RGB color
@@ -61,14 +61,14 @@ public class EsteganografiaSC {
 		 */
 		foto = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
 		
-
+	
 		// Inserta el mensaje en la imagen bit a bit
 		for (int i = 0; i < foto.getHeight(); i++) {// Filas
 			for (int j = 0; j < foto.getWidth(); j++) {// Columnas
 				
 				
 				color = new Color(img.getRGB(j, i));
-
+	
 				if (contAux <= msgBinario.length()) {
 					// Conversion a binario
 					String rojo = byteABinario((byte) color.getRed());
@@ -87,13 +87,13 @@ public class EsteganografiaSC {
 					red = color.getRed();
 					green = color.getGreen();
 					blue = color.getBlue();
-
+	
 				}
-
+	
 				// Vamos "creando" la imagen con contenido oculto
 				Color colAux = new Color(red, green, blue);
 				foto.setRGB(j, i, colAux.getRGB());
-
+	
 				// Cada letra son pixel son tres bytes (Uno por cada color)
 				contAux =+ 3;
 			}
@@ -103,15 +103,6 @@ public class EsteganografiaSC {
 		generarImagen(foto);
 		reset();
 		
-	}
-	
-	private void generarImagen(BufferedImage imagen){
-		try {
-			ImageIO.write(imagen, "bmp", new File("fotoSC.bmp"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/*
@@ -132,33 +123,33 @@ public class EsteganografiaSC {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	
 		boolean terminado = false;
-
+	
 		msgOriginal = "";
 		
-
+	
 		// Comprobamos el flag
 		if (checkFlag(pBit,img)) {// Si hay mensaje oculto
-
+	
 			// Guardamos la longitud del mensaje
 			getLongitudMensaje(pBit,img);
 			
-
+	
 			// Preparamos un array de String con la longitud obtenida y un
 			// String auxiliar
 			String[] arrayStr = new String[longitud];
 			String aux = "";
-
+	
 			// Extrae el mensaje de la foto bit a bit
 			for (int i = 0; i < img.getHeight() && !terminado; i++) {
 				for (int j = 0; j < img.getWidth() && !terminado; j++) {
 					
 					
-
+	
 					// Reutilizamos código del metodo ocultarMensaje
 					color = new Color(img.getRGB(j, i));
-
+	
 					// Conversion a binario
 					String rojo = byteABinario((byte) color.getRed());
 					String verde = byteABinario((byte) color.getGreen());
@@ -167,7 +158,7 @@ public class EsteganografiaSC {
 					rojo = getBit(pBit, rojo);
 					verde = getBit(pBit, verde);
 					azul = getBit(pBit, azul);
-
+	
 					// Se va extrayendo el mensaje
 					if (aux.length() <= (longitud * 8)) {
 						aux = aux + rojo + verde + azul;
@@ -176,31 +167,36 @@ public class EsteganografiaSC {
 						terminado = true;
 						
 					}
-
+	
 					// Comienzan las conversiones para obtener el mensaje de
 					// forma legible
-
+	
 				}
 			} // Fin for
-
+	
 			int contAux = 0;
 			for (int i = 0; i < (longitud * 8); i = i + 8) {
 				arrayStr[contAux] = aux.substring(i, i + 8);
 				contAux++;
 			}
-
+	
 			msgOriginal = getMensajeDeArrayBinario(arrayStr);
 		} else {// Si no hay mensaje oculto
 			msgOriginal = "No hay mensaje oculto";
 		}
-
+	
 		
 		return msgOriginal;
-
+	
 	}
 
-	public BufferedImage getFoto() {
-		return this.foto;
+	private void generarImagen(BufferedImage imagen){
+		try {
+			ImageIO.write(imagen, "bmp", new File("fotoSC.bmp"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/*
@@ -454,24 +450,15 @@ public class EsteganografiaSC {
 	}
 	
 	private void reset(){
-		// Flag que indica si la imagen contiene mensaje oculto
 		flag = "fl";
-
-		// Tamaño del mensaje + flag + tamaño propio
 		longitud = 0;
-
-		// Imagen
-		BufferedImage foto = null;
+		foto = null;
 		red = 0;
 		green = 0; 
 		blue= 0;
 		color = null;
-
-		// Mensaje
 		msgBinario = "";
 		msgOriginal = "";
-
-		// Contador
 		cont = 0;
 	}
 	
@@ -479,9 +466,9 @@ public class EsteganografiaSC {
 		
 		EsteganografiaSC es = new EsteganografiaSC();
 		
-		es.ocultarMensaje("C:\\Users\\Alber\\git\\admincipher\\Ace-and-Luffy.bmp", "Dime que funciona con el bit 3", 3);
+		es.ocultarMensaje("Ace-and-Luffy.bmp", "Dime que funciona con el bit 3", 3);
 		
-		es.extraerMensaje("C:\\Users\\Alber\\git\\admincipher\\fotoSC.bmp", 3);
+		es.extraerMensaje("fotoSC.bmp", 3);
 		
 		System.out.println(es.msgOriginal);
 		
