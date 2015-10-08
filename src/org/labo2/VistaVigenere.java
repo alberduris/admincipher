@@ -1,4 +1,4 @@
-package org.admincipher;
+package org.labo2;
 
 import java.awt.Color;
 import java.awt.Font;

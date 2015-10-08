@@ -359,10 +359,7 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 	
 	private void ocultar(){
 		String rutaOcultar = txtRutaOcultar.getText();
-		String mensaje = txtMensaje.getText();
-		int bit = (int) spinnerBitOcultar.getValue();
-		System.out.println("Ruta: "+rutaOcultar+"\nMensaje: "+mensaje+"\nBit: "+bit);
-		
+		String mensaje = txtMensaje.getText();		
 		
 
 		

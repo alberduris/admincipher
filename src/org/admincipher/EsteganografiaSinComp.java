@@ -36,8 +36,6 @@ public class EsteganografiaSinComp {
 	 */
 	public void ocultarMensaje(String pRuta, String mensaje, int pBit) {
 		
-		int contMio = 0;
-		
 		BufferedImage img = null;
 		
 		//Leer la imagen de la ruta

@@ -1,4 +1,4 @@
-package org.admincipher;
+package org.labo2;
 
 public class DescifrarKasiski {
 	private static DescifrarKasiski miKasiski;

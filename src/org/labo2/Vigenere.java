@@ -1,4 +1,4 @@
-package org.admincipher;
+package org.labo2;
 
 public class Vigenere {
 	private static Vigenere miVigenere;
