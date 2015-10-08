@@ -10,10 +10,12 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -60,6 +62,10 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 	
 	private JButton btnOcultar;
 	private JButton btnMostrar;
+	
+	private JButton btnExaminarOcultar;
+	private JButton btnExaminarMostrar;
+	private JFileChooser fileChooser;
 
 	/**
 	 * Launch the application.
@@ -157,6 +163,10 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		
 		crearBtnMostrar();
 		
+		crearBtnExaminarOcultar();
+		
+		crearBtnExaminarMostrar();
+		
 		
 		
 		
@@ -208,7 +218,7 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		cBtnOcultar.gridwidth = 3;
 		cBtnOcultar.fill = GridBagConstraints.HORIZONTAL;
 		cBtnOcultar.gridx = 0;
-		cBtnOcultar.gridy = 3;
+		cBtnOcultar.gridy = 4;
 		
 		btnOcultar.addActionListener(new ActionListener(){
 
@@ -229,7 +239,7 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		
 		cTxtMensaje.weightx = 1;
 		cTxtMensaje.gridx = 1;
-		cTxtMensaje.gridy = 2;
+		cTxtMensaje.gridy = 3;
 		cTxtMensaje.fill = GridBagConstraints.HORIZONTAL;
 		panelOcultar.add(txtMensaje,cTxtMensaje);
 	}
@@ -242,15 +252,15 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		cLblMensaje.weightx = 0.5;
 		cLblMensaje.anchor = GridBagConstraints.CENTER;
 		cLblMensaje.gridx = 0;
-		cLblMensaje.gridy = 2;
+		cLblMensaje.gridy = 3;
 		panelOcultar.add(lblMensaje,cLblMensaje);
 	}
 
 	private void crearLblRelleno() {
 		lblRelleno = new JLabel();
 		GridBagConstraints cLblRelleno = new GridBagConstraints();
-		cLblRelleno.ipady = 7;
-		cLblRelleno.insets = new Insets(20, 0, 0, 0);
+		cLblRelleno.ipady = 0;
+		cLblRelleno.insets = new Insets(57, 0, 0, 0);
 		cLblRelleno.gridx = 0;
 		cLblRelleno.gridy = 2;
 		panelMostrar.add(lblRelleno, cLblRelleno);
@@ -267,10 +277,12 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		spinnerBitMostrar.setModel(model);
 		
 		GridBagConstraints cSpinnerBitMostrar = new GridBagConstraints();
+		cSpinnerBitMostrar.anchor = GridBagConstraints.NORTH;
+		cSpinnerBitMostrar.insets = new Insets(0,0,0,0);
 		cSpinnerBitMostrar.ipadx = 5;
 		cSpinnerBitMostrar.ipady = 5;
 		cSpinnerBitMostrar.gridx = 1;
-		cSpinnerBitMostrar.gridy = 1;
+		cSpinnerBitMostrar.gridy = 2;
 		panelMostrar.add(spinnerBitMostrar,cSpinnerBitMostrar);
 	}
 
@@ -289,16 +301,18 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		cSpinnerBitOcultar.ipadx = 5;
 		cSpinnerBitOcultar.ipady = 5;
 		cSpinnerBitOcultar.gridx = 1;
-		cSpinnerBitOcultar.gridy = 1;
+		cSpinnerBitOcultar.gridy = 2;
 		panelOcultar.add(spinnerBitOcultar,cSpinnerBitOcultar);
 	}
 
 	private void crearLblBitMostrar() {
 		lblBitMostrar = new JLabel("Bit: ");
 		GridBagConstraints cLblBitMostrar = new GridBagConstraints();
-		cLblBitMostrar.ipady = 15;
+		cLblBitMostrar.anchor = GridBagConstraints.NORTH;
+		cLblBitMostrar.insets = new Insets(5,0,0,0);
+		cLblBitMostrar.ipady = 0;
 		cLblBitMostrar.gridx = 0;
-		cLblBitMostrar.gridy = 1;
+		cLblBitMostrar.gridy = 2;
 		panelMostrar.add(lblBitMostrar,cLblBitMostrar);
 	}
 
@@ -307,7 +321,7 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		GridBagConstraints cLblBitOcultar = new GridBagConstraints();
 		cLblBitOcultar.ipady = 10;
 		cLblBitOcultar.gridx = 0;
-		cLblBitOcultar.gridy = 1;
+		cLblBitOcultar.gridy = 2;
 		panelOcultar.add(lblBitOcultar,cLblBitOcultar);
 	}
 
@@ -355,6 +369,39 @@ public class VentanaPrincipalSinComparacion extends JFrame {
 		cLblRutaOcultar.gridx = 0;
 		cLblRutaOcultar.gridy = 0;
 		panelOcultar.add(lblRutaOcultar,cLblRutaOcultar);
+	}
+	
+	private void crearBtnExaminarOcultar(){
+		btnExaminarOcultar = new JButton("Examinar");
+		GridBagConstraints cBtnExaminarOcultar = new GridBagConstraints();
+		
+		cBtnExaminarOcultar.insets = new Insets(0,0,10,0);
+		cBtnExaminarOcultar.fill = GridBagConstraints.HORIZONTAL;
+		cBtnExaminarOcultar.gridwidth = 2;
+		cBtnExaminarOcultar.gridx = 0;
+		cBtnExaminarOcultar.gridy = 1;
+		
+		panelOcultar.add(btnExaminarOcultar,cBtnExaminarOcultar);
+		
+	}
+	
+	private void crearBtnExaminarMostrar(){
+		btnExaminarMostrar = new JButton("Examinar");
+		GridBagConstraints cBtnExaminarMostrar = new GridBagConstraints();
+		
+		cBtnExaminarMostrar.insets = new Insets(0,0,10,0);
+		cBtnExaminarMostrar.fill = GridBagConstraints.HORIZONTAL;
+		cBtnExaminarMostrar.gridwidth = 2;
+		cBtnExaminarMostrar.gridx = 0;
+		cBtnExaminarMostrar.gridy = 1;
+		
+		panelMostrar.add(btnExaminarMostrar,cBtnExaminarMostrar);
+		
+	}
+	
+	private void crearFileChooser(){
+		fileChooser = new JFileChooser();
+		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 	}
 	
 	private void ocultar(){
