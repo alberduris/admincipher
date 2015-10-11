@@ -41,10 +41,9 @@ public class EsteganografiaSC {
 		//Leer la imagen de la ruta
 		try {
 			img = ImageIO.read(new File(pRuta));
-			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("No se ha podido leer la imagen de esa ruta");
 		}
 	
 		int contAux = 0;
@@ -52,7 +51,6 @@ public class EsteganografiaSC {
 		// Se crea el mensaje encapsulando todo
 		crearMensaje(mensaje);
 		
-		//OK <-- AQUI LLEGA EL MENSAJE BIEN
 	
 		// Creamos la imagen
 		/*
@@ -120,8 +118,8 @@ public class EsteganografiaSC {
 			img = ImageIO.read(new File(pRuta));
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("No se ha podido leer la imagen de esa ruta");
 		}
 	
 		boolean terminado = false;
@@ -194,10 +192,11 @@ public class EsteganografiaSC {
 		try {
 			ImageIO.write(imagen, "bmp", new File("fotoSC.bmp"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("No se ha podido generar la imagen");
 		}
 	}
+	
 
 	/*
 	 * @post: Guarda en la variable global longitud la longitud del mensaje
@@ -239,26 +238,16 @@ public class EsteganografiaSC {
 		for (int i = 0; i < 6; i++) {
 
 			color = new Color(imagen.getRGB(i, 0));
-			
-			//OK
-			
 
 			String rojo = byteABinario((byte) color.getRed());
 			String verde = byteABinario((byte) color.getGreen());
 			String azul = byteABinario((byte) color.getBlue());
 			
-			
-			
-			
 			// Saca los LSB por pasarle un 8
 			String lsbRojo = getBit(pBit, rojo);
 			String lsbVerde = getBit(pBit, verde);
 			String lsbAzul = getBit(pBit, azul);
-			
-			
 
-			
-			
 			flagAux = flagAux + lsbRojo + lsbVerde + lsbAzul;
 		}
 		
@@ -273,6 +262,7 @@ public class EsteganografiaSC {
 
 	}
 
+	
 	/*
 	 * @post: Devuelve un string con el mensaje obtenido a partir del array con
 	 * el mensaje en binario
@@ -286,6 +276,7 @@ public class EsteganografiaSC {
 
 		return mensaje;
 	}
+	
 
 	/*
 	 * @post: Devuelve el caracter, en forma de String, del String en binario
@@ -300,6 +291,7 @@ public class EsteganografiaSC {
 
 		return strChar;
 	}
+	
 
 	/*
 	 * @post: Se obtiene el String que se quiere ocultar compuesto por el
@@ -313,13 +305,9 @@ public class EsteganografiaSC {
 		
 		
 		
-		//longitudBinario = Integer.toBinaryString(longitud);
+	
+		longitudBinario = toBinaryStringRellenado(15,longitudBinario);
 		
-		for( int i = 15; i>=0; i--){
-	           longitudBinario = longitudBinario + ( ( ( longitud & ( 1<<i ) ) > 0 ) ? "1" : "0" ) ;
-		}
-		
-		//
 		
 
 		
@@ -329,6 +317,20 @@ public class EsteganografiaSC {
 		
 		
 	}
+	
+	
+	/*
+	 * @post: Realiza la misma funcion que el metodo de la clase Integer toBinaryString pero
+	 * rellenando rellenando la cadena binaria hasta los bits que se indiquen en el primer
+	 * parametro
+	 */
+	private String toBinaryStringRellenado(int pI, String longitudBinario) {
+		for( int i = pI; i>=0; i--){
+	           longitudBinario = longitudBinario + ( ( ( longitud & ( 1<<i ) ) > 0 ) ? "1" : "0" ) ;
+		}
+		return longitudBinario;
+	}
+	
 
 	/*
 	 * @post: Devuelve un String con el mensaje en String que recibe como
@@ -353,18 +355,22 @@ public class EsteganografiaSC {
 	private String byteABinario(byte caracter) {
 		byte byteChar = (byte) caracter;
 		String strBin = "";
-		//String strBin = String.format("%8s", Integer.toBinaryString(byteChar & 0xFF)).replace(' ', '0');
-		//
 		
-        for( int i = 7; i>=0; i--){
+        strBin = toBinaryStringFormateado(7,byteChar, strBin);
+		
+		return strBin;
+	}
+
+	/*
+	 * @post: Realiza la misma función que la funcion de la clase Integer toBinaryString junto
+	 * con el metodo de la clase String format con la siguiente configuracion:
+	 * String.format("%8s", Integer.toBinaryString(byteChar & 0xFF)).replace(' ', '0')
+	 * pero rellenando el número de bits que se indica en el primer parametro
+	 */
+	private String toBinaryStringFormateado(int pI, byte byteChar, String strBin) {
+		for( int i = pI; i>=0; i--){
            strBin = strBin + ( ( ( byteChar & ( 1<<i ) ) > 0 ) ? "1" : "0" ) ;
         }
-
-		
-		//
-        
-        
-		
 		return strBin;
 	}
 
@@ -449,6 +455,7 @@ public class EsteganografiaSC {
 
 	}
 	
+
 	private void reset(){
 		flag = "fl";
 		longitud = 0;
@@ -462,6 +469,7 @@ public class EsteganografiaSC {
 		cont = 0;
 	}
 	
+	//Main para pruebas
 	public static void main(String [] args){
 		
 		EsteganografiaSC es = new EsteganografiaSC();
