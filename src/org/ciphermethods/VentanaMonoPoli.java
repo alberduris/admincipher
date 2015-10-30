@@ -22,6 +22,7 @@ public class VentanaMonoPoli extends JFrame {
 	private JPanel panelConBorderLayout;
 	private JPanel panelConBoxLayout;
 	
+	private JButton btnEsteganografia;
 	private JButton btnMono;
 	private JButton btnPoli;
 	
@@ -50,7 +51,7 @@ public class VentanaMonoPoli extends JFrame {
 	 */
 	public VentanaMonoPoli() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 200);
+		setSize(300, 230);
 		setLocationRelativeTo(null);
 		
 		
@@ -72,6 +73,7 @@ public class VentanaMonoPoli extends JFrame {
 		
 		getTituloMonoPoli();
 		
+		getBtnEsteganografia();
 		getBtnMono();
 		getBtnPoli();
 		
@@ -89,6 +91,20 @@ public class VentanaMonoPoli extends JFrame {
 		
 		panelConBorderLayout.add(lblTitulo, BorderLayout.NORTH);
 		
+	}
+	
+	
+	private void getBtnEsteganografia(){
+		btnEsteganografia = new JButton("Métodos esteganografía");
+		btnEsteganografia.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnEsteganografia.setMinimumSize(dimBtn);
+		btnEsteganografia.setPreferredSize(dimBtn);
+		btnEsteganografia.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnEsteganografia.setEnabled(false);
+		
+		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0,15)));
+		panelConBoxLayout.add(btnEsteganografia);
 	}
 	
 	private void getBtnMono(){
