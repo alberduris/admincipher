@@ -6,25 +6,38 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panelConBorderLayout;
 	private JPanel panelConFlowLayout;
 	
 	private JLabel lblTitulo;
+	
+	private JLabel lblMedidas;
 	
 	private JLabel lblFilas;
 	private JSpinner spinnerFilas; 
@@ -37,9 +50,15 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	private JTextField txtClave;
 	
 	private JLabel lblTexto;
-	private JTextField txtTexto;
+	private JTextArea txtTexto;
 	
 	private JButton btnEncriptar;
+	
+	private JDialog dialogAlerta;
+	
+	private Dimension dimPreferida = new Dimension(300,380);
+	
+	private EscitaloDeEsparta ede = new EscitaloDeEsparta();
 	
 	
 	/**
@@ -63,23 +82,25 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	 */
 	public VentanaEscitaloDeEspartaCrypt() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 300);
+		setSize(dimPreferida);
 		setLocationRelativeTo(null);
 		
 		
 		contentPane = new JPanel();
-		contentPane.setMaximumSize(new Dimension(300,300));
-		contentPane.setMinimumSize(new Dimension(300,300));
-		contentPane.setPreferredSize(new Dimension(300,300));
+		contentPane.setMaximumSize(dimPreferida);
+		contentPane.setMinimumSize(dimPreferida);
+		contentPane.setPreferredSize(dimPreferida);
 		setContentPane(contentPane);
 		panelConBorderLayout = new JPanel();
 		panelConFlowLayout = new JPanel();
-		panelConBorderLayout.setMaximumSize(new Dimension(300,300));
-		panelConBorderLayout.setMinimumSize(new Dimension(300,300));
-		panelConBorderLayout.setPreferredSize(new Dimension(300,300));
-		panelConFlowLayout.setMaximumSize(new Dimension(300,300));
-		panelConFlowLayout.setMinimumSize(new Dimension(300,300));
-		panelConFlowLayout.setPreferredSize(new Dimension(300,300));
+		
+		panelConBorderLayout.setMaximumSize(dimPreferida);
+		panelConBorderLayout.setMinimumSize(dimPreferida);
+		panelConBorderLayout.setPreferredSize(dimPreferida);
+		
+		panelConFlowLayout.setMaximumSize(dimPreferida);
+		panelConFlowLayout.setMinimumSize(dimPreferida);
+		panelConFlowLayout.setPreferredSize(dimPreferida);
 		
 		
 		
@@ -94,6 +115,8 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		
 		getTituloCryptEscitalo();
 		
+		getLblMedidas();
+		
 		getLblFilas();
 		getSpinnerFilas();
 		
@@ -102,13 +125,18 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		
 		getBtnClave();
 		getTxtClave();
+		
+		getLblTexto();
+		getTxtTexto();
+		
+		 getBtnEncriptar();
 	}
 	
 	private void getTituloCryptEscitalo(){
 		
-		lblTitulo = new JLabel("Encriptar por Escitalo de Esparta");
+		lblTitulo = new JLabel("Escitalo de Esparta");
 		lblTitulo.setHorizontalAlignment(0);
-		lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
+		lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
 		lblTitulo.setOpaque(true);
 		lblTitulo.setForeground(Color.black);
 		
@@ -116,12 +144,22 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		
 	}
 	
+	private void getLblMedidas(){
+		lblMedidas = new JLabel("Medidas del bastón: ");
+		lblMedidas.setHorizontalAlignment(0);
+		
+	
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(60,0)));
+		panelConFlowLayout.add(lblMedidas);
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(60,0)));
+	}
+	
 	private void getLblFilas(){
-		lblFilas = new JLabel("Nº de filas");
+		lblFilas = new JLabel("Diametro: ");
 		lblFilas.setHorizontalAlignment(0);
 		
 		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
+		//panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
 		panelConFlowLayout.add(lblFilas);
 	}
 	
@@ -134,6 +172,18 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		                               1);                //step
 		spinnerFilas.setModel(model);
 		
+		spinnerFilas.addChangeListener(new ChangeListener(){
+
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				txtTexto.setText("");
+				txtClave.setText("");
+				
+			}
+			
+		});
+		
 	
 		spinnerFilas.setMinimumSize(new Dimension(35,25));
 		spinnerFilas.setPreferredSize(new Dimension(35,25));
@@ -143,7 +193,7 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	}
 	
 	private void getLblColumnas(){
-		lblColumnas = new JLabel("Nº de columnas");
+		lblColumnas = new JLabel("Longitud: ");
 		lblColumnas.setHorizontalAlignment(0);
 		
 		
@@ -160,6 +210,17 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		                               1);                //step
 		spinnerColumnas.setModel(model);
 		
+		spinnerColumnas.addChangeListener(new ChangeListener(){
+
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				txtTexto.setText("");
+				txtClave.setText("");
+			}
+			
+		});
+		
 	
 		spinnerColumnas.setMinimumSize(new Dimension(35,25));
 		spinnerColumnas.setPreferredSize(new Dimension(35,25));
@@ -171,6 +232,22 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	private void getBtnClave(){
 		btnGenerarClave = new JButton("Generar clave");
 		btnGenerarClave.setHorizontalAlignment(0);
+		btnGenerarClave.setPreferredSize(new Dimension(125,30));
+		
+		btnGenerarClave.addActionListener(new ActionListener(){
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ede.setFilas((int)spinnerFilas.getValue());
+				ede.setColumnas((int)spinnerColumnas.getValue());
+				txtClave.setText(ede.generarClaveAleatoria());
+				
+				if(txtTexto.equals("El texto es demasiado largo y no cabe en el bastón que has elegido. "
+							+ "Por favor, elige un bastón más grande o introduce menos texto.")){
+					txtTexto.setText("");
+				}
+			}
+		});
 		
 		
 		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
@@ -180,10 +257,137 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	private void getTxtClave(){
 		txtClave = new JTextField();
 		txtClave.setEditable(false);
-		txtClave.setPreferredSize(new Dimension(100,30));
+		txtClave.setPreferredSize(new Dimension(125,30));
+		
 		
 		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
 		panelConFlowLayout.add(txtClave);
+		
+	}
+	
+	private void getLblTexto(){
+		lblTexto = new JLabel("Texto");
+		lblTexto.setHorizontalAlignment(0);
+		
+		
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(125,0)));
+		panelConFlowLayout.add(lblTexto);
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(125,0)));
+	}
+	
+	private void getTxtTexto(){
+		      
+		
+		txtTexto = new JTextArea();
+		txtTexto.setRows(10);
+		txtTexto.setEditable(true);
+		txtTexto.setFont(new Font("Serif", Font.ITALIC, 16));
+		txtTexto.setLineWrap(true);
+		txtTexto.setWrapStyleWord(true);
+		
+		txtTexto.setPreferredSize(new Dimension(250,100));
+		
+		JScrollPane areaScrollPane = new JScrollPane(txtTexto);
+		areaScrollPane.setVerticalScrollBarPolicy(
+		                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		areaScrollPane.setPreferredSize(new Dimension(250, 100));
+		
+		
+		
+		
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
+		panelConFlowLayout.add(areaScrollPane);
+	}
+	
+	private void getBtnEncriptar(){
+		btnEncriptar = new JButton("Encriptar");
+		btnEncriptar.setHorizontalAlignment(0);
+		btnEncriptar.setPreferredSize(new Dimension(125,40));
+		
+		btnEncriptar.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				if(!txtClave.getText().equals("")){
+					
+				
+					//Comprobar longitud
+					if(ede.longitudOk((int)spinnerFilas.getValue(),(int)spinnerColumnas.getValue(),txtTexto.getText())){
+						ede.setFilas((int)spinnerFilas.getValue());
+						ede.setColumnas((int)spinnerColumnas.getValue());
+						ede.setTexto(txtTexto.getText());
+						ede.encriptarEscitaloDeEsparta();
+						
+						txtTexto.setEditable(false);
+						txtTexto.setText(ede.getTextoEncriptado());
+					}
+					else{
+						txtTexto.setText("El texto es demasiado largo y no cabe en el bastón que has elegido. "
+								+ "Por favor, elige un bastón más grande o introduce menos texto.");
+						
+					}//Fin longitud
+					
+				}//Fin clave
+				else{
+					crearDialogAlerta();
+				}
+				
+				
+				
+				
+			}
+			
+		});
+		
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
+		panelConFlowLayout.add(btnEncriptar);
+	}
+	
+	private void crearDialogAlerta(){
+		GridBagConstraints csTexto = new GridBagConstraints();
+		GridBagConstraints csBoton = new GridBagConstraints();
+		
+		csTexto.weighty = 1;
+		csTexto.gridx = 0;
+		csTexto.gridy = 0;
+		
+		csBoton.weighty = 1;
+		csBoton.gridx = 0;
+		csBoton.gridy = 1;
+		
+		JLabel texto = new JLabel();
+		
+		texto.setText("Primero debes generar una clave");
+		
+		JButton boton = new JButton("Cerrar");
+		
+		boton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dialogAlerta.dispose();
+			}
+			
+		});
+		
+		dialogAlerta = new JDialog();
+		dialogAlerta.setSize(300,125);
+		dialogAlerta.setModal(false);
+		dialogAlerta.setVisible(true);
+		dialogAlerta.setLocationRelativeTo(contentPane);
+		dialogAlerta.setTitle("Mensaje oculto");
+		
+		
+		dialogAlerta.setLayout(new GridBagLayout());
+		dialogAlerta.getContentPane().setBackground(new Color(0xFFFFFF));
+	
+
+		dialogAlerta.add(texto,csTexto);
+		dialogAlerta.add(boton,csBoton);
+		
 	}
 
 }

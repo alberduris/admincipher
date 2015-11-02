@@ -1,5 +1,8 @@
 package org.ciphermethods;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class EscitaloDeEsparta {
 	
 	private char[][] matrizInicial;
@@ -15,14 +18,9 @@ public class EscitaloDeEsparta {
 	private String textoSalida = "";
 	
 	
-	private void encriptarEscitaloDeEsparta(){
-		
-		numFilas = 7;
-		numCols = 5;
+	public void encriptarEscitaloDeEsparta(){
 		
 		matrizInicial = new char[numCols][numFilas];
-		
-		textoEntrada = "El perro de San Roque notiene rabo.";
 		
 		rellenarTextoEntrada();
 		
@@ -30,10 +28,8 @@ public class EscitaloDeEsparta {
 		
 		imprimirMatriz(matrizInicial);
 		
-		clave = new String[numCols];
-		
-		crearClave(32154);
-		
+		//crearClave();
+		//System.out.println("Imprimir clave: ");
 		//imprimirClave();
 		
 		generartextoEncriptado();
@@ -134,6 +130,35 @@ public class EscitaloDeEsparta {
 		
 		
 	}
+	
+	public String generarClaveAleatoria(){
+		clave = new String[numCols];
+		Random random = new Random();
+		ArrayList<Integer> arrayAux = new ArrayList<Integer>();
+		int aux = 0;
+		int cont = 0;
+		String strClave = "";
+		boolean completo = false;
+		
+		while(!completo){
+			
+			aux = random.nextInt(numCols)+1;
+			if(!arrayAux.contains(aux)){
+				arrayAux.add(aux);
+				clave[cont] = Integer.toString(aux);
+				strClave = strClave + Integer.toString(aux);
+				cont++;
+			}
+			if(cont == numCols) completo= true;
+			
+		}
+		
+		
+		
+		return strClave;
+		 
+		
+	}
 
 	private void rellenarmatrizInicialConEntrada(){
 		
@@ -186,16 +211,40 @@ public class EscitaloDeEsparta {
 	private void imprimirtextoSalida(){
 		System.out.println(textoSalida);
 	}
+	
+	public void setFilas(int pFilas){
+		numFilas = pFilas;
+	}
+	
+	public void setColumnas(int pColumnas){
+		numCols = pColumnas;
+	}
+	public void setTexto(String pTexto){
+		textoEntrada = pTexto;
+	}
 		
 	
 
 	public static void main(String[] args) {
 		EscitaloDeEsparta ede = new EscitaloDeEsparta();
-		ede.encriptarEscitaloDeEsparta();
-		ede.desencriptarEscitaloDeEsparta();
+		//ede.encriptarEscitaloDeEsparta();
+		//ede.desencriptarEscitaloDeEsparta();
+		
+		ede.generarClaveAleatoria();
+		ede.imprimirClave();
 		
 		
 		
+	}
+
+	public String getTextoEncriptado() {
+		return textoEncriptado;
+	}
+
+	public boolean longitudOk(int pFilas, int pCols, String pText) {
+		boolean ok = false;
+		if(pFilas*pCols >= pText.length()) ok = true;
+		return ok;
 	}
 
 }
