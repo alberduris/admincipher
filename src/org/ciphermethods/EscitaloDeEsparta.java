@@ -20,6 +20,7 @@ public class EscitaloDeEsparta {
 	
 	public void encriptarEscitaloDeEsparta(){
 		
+		imprimirClave();
 		matrizInicial = new char[numCols][numFilas];
 		
 		rellenarTextoEntrada();
@@ -38,7 +39,7 @@ public class EscitaloDeEsparta {
 		
 	}
 	
-	private void desencriptarEscitaloDeEsparta(){
+	public void desencriptarEscitaloDeEsparta(){
 		
 		reconstruirmatrizInicial();
 		generarTextoSalida();
@@ -52,21 +53,18 @@ public class EscitaloDeEsparta {
 	private void reconstruirmatrizInicial() {
 		
 		matrizFinal = new char[numCols][numFilas];
-		String subStr;
+		String subStr = "";
 		String encriptadoAux = textoEncriptado;
 		
 		
-		
-			
-		
 			for(int i = 0; i < numCols ; i++){
 				
+				if(encriptadoAux.length() >= numFilas){
+					subStr = encriptadoAux.substring(0, numFilas);
+					encriptadoAux = encriptadoAux.substring(numFilas);		
+				}
+			escribirColumna(Integer.parseInt(clave[i]),subStr);
 				
-				subStr = encriptadoAux.substring(0, numFilas);
-				
-				encriptadoAux = encriptadoAux.substring(numFilas);
-				
-				escribirColumna(Integer.parseInt(clave[i]),subStr);
 			}
 	}
 	
@@ -109,17 +107,22 @@ public class EscitaloDeEsparta {
 		
 		for(int i = 0; i < numFilas; i++){
 			
-			if(subStr.charAt(i) != '_'){
-				matrizFinal[pCol-1][i] = subStr.charAt(i);
-			}
-			else{
-				matrizFinal[pCol-1][i] = ' ';
+			if(subStr.length() > i){
+			
+				if(subStr.charAt(i) != '_'){
+					matrizFinal[pCol-1][i] = subStr.charAt(i);
+				}
+				else{
+					matrizFinal[pCol-1][i] = ' ';
+				}
 			}
 		}
 		
 	}
 
-	private void crearClave(Integer pClave){
+	public void crearClave(Integer pClave){
+		
+		clave = new String[numCols];
 		
 		String strClave = Integer.toString(pClave);
 		
@@ -195,7 +198,19 @@ public class EscitaloDeEsparta {
 	}
 	
 	//Pruebas
-	private void imprimirClave(){
+	public void imprimirMatrizFinal(){
+			
+			for(int i = 0; i < numFilas; i++){
+				for(int j = 0; j < numCols; j++){
+						System.out.print(matrizFinal[j][i] + " ");
+				}
+				System.out.println();
+			}
+			
+		}
+	
+	//Pruebas
+	public void imprimirClave(){
 		for(int i = 0; i < clave.length; i++){
 			System.out.print(clave[i]+" - ");
 		}
@@ -208,8 +223,13 @@ public class EscitaloDeEsparta {
 	}
 	
 	//Pruebas
-	private void imprimirtextoSalida(){
+	public void imprimirtextoSalida(){
 		System.out.println(textoSalida);
+	}
+	
+	public void imprimirFilasYColumnas(){
+		System.out.println("Filas: "+numFilas);
+		System.out.println("Columnas "+numCols);
 	}
 	
 	public void setFilas(int pFilas){
@@ -222,29 +242,58 @@ public class EscitaloDeEsparta {
 	public void setTexto(String pTexto){
 		textoEntrada = pTexto;
 	}
-		
 	
-
-	public static void main(String[] args) {
-		EscitaloDeEsparta ede = new EscitaloDeEsparta();
-		//ede.encriptarEscitaloDeEsparta();
-		//ede.desencriptarEscitaloDeEsparta();
-		
-		ede.generarClaveAleatoria();
-		ede.imprimirClave();
-		
-		
-		
-	}
-
 	public String getTextoEncriptado() {
 		return textoEncriptado;
 	}
+	
+	public String getTextoSalida(){
+		return textoSalida;
+	}
 
 	public boolean longitudOk(int pFilas, int pCols, String pText) {
+		
 		boolean ok = false;
 		if(pFilas*pCols >= pText.length()) ok = true;
 		return ok;
 	}
+	
+	public void reset(){
+		numFilas = -1;
+		numCols = -1;
+		if(clave != null){
+			for(int i = 0; i < clave.length; i++){
+				clave[i] = "";
+			}
+		}
+		textoEntrada = "";
+		textoEncriptado = "";
+		textoSalida = "";
+		
+	}
+	
+	public void setTextoEncriptado(String pText) {
+	
+		textoEncriptado = pText;
+		
+	}
+	
+
+	public static void main(String[] args) {
+		//EscitaloDeEsparta ede = new EscitaloDeEsparta();
+		//ede.encriptarEscitaloDeEsparta();
+		
+		
+		//ede.desencriptarEscitaloDeEsparta();
+		
+		
+		
+		
+		
+	}
+
+	
+
+	
 
 }

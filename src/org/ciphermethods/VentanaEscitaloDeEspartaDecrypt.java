@@ -10,10 +10,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.Format;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,8 +28,10 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 
-public class VentanaEscitaloDeEspartaCrypt extends JFrame {
+public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 
 	/**
 	 * 
@@ -46,8 +52,8 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	private JSpinner spinnerColumnas; 
 	
 	//private JLabel lblClave;
-	private JButton btnGenerarClave;
-	private JTextField txtClave;
+	private JLabel lblClave;
+	private JFormattedTextField txtClave;
 	
 	private JLabel lblTexto;
 	private JTextArea txtTexto;
@@ -56,7 +62,7 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	
 	private JDialog dialogAlerta;
 	
-	private Dimension dimPreferida = new Dimension(300,380);
+	private Dimension dimPreferida = new Dimension(300,400);
 	
 	private EscitaloDeEsparta ede = new EscitaloDeEsparta();
 	
@@ -68,7 +74,7 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaEscitaloDeEspartaCrypt frame = new VentanaEscitaloDeEspartaCrypt();
+					VentanaEscitaloDeEspartaDecrypt frame = new VentanaEscitaloDeEspartaDecrypt();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,7 +86,9 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaEscitaloDeEspartaCrypt() {
+	public VentanaEscitaloDeEspartaDecrypt() {
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(dimPreferida);
 		setLocationRelativeTo(null);
@@ -123,14 +131,14 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		getLblColumnas();
 		getSpinnerColumnas();
 		
-		getBtnClave();
+		getLblClave();
 		getTxtClave();
 		
 		getLblTexto();
 		getTxtTexto();
 		
-		getBtnEncriptar();
-		
+		getBtnDesencriptar();
+	
 		ede.reset();
 	}
 	
@@ -161,7 +169,6 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		lblFilas.setHorizontalAlignment(0);
 		
 		
-		//panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
 		panelConFlowLayout.add(lblFilas);
 	}
 	
@@ -229,43 +236,41 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		spinnerColumnas.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		
 		panelConFlowLayout.add(spinnerColumnas);
+		
 	}
 	
-	private void getBtnClave(){
-		btnGenerarClave = new JButton("Generar clave");
-		btnGenerarClave.setHorizontalAlignment(0);
-		btnGenerarClave.setPreferredSize(new Dimension(125,30));
-		
-		btnGenerarClave.addActionListener(new ActionListener(){
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ede.setFilas((int)spinnerFilas.getValue());
-				ede.setColumnas((int)spinnerColumnas.getValue());
-				txtClave.setText(ede.generarClaveAleatoria());
-				
-				if(txtTexto.equals("El texto es demasiado largo y no cabe en el bastón que has elegido. "
-							+ "Por favor, elige un bastón más grande o introduce menos texto.")){
-					txtTexto.setText("");
-				}
-			}
-		});
+	private void getLblClave(){
+		lblClave = new JLabel("Clave: ");
+		lblClave.setHorizontalAlignment(0);
+		lblClave.setPreferredSize(new Dimension(125,10));
 		
 		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(btnGenerarClave);
+		
+		
+		//panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
+		panelConFlowLayout.add(lblClave);
 	}
 	
 	private void getTxtClave(){
-		txtClave = new JTextField();
-		txtClave.setEditable(false);
-		txtClave.setPreferredSize(new Dimension(125,30));
 		
+		NumberFormat format = NumberFormat.getInstance();
+		format.setGroupingUsed(false);
 		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
+		NumberFormatter formatter = new NumberFormatter(format);
+	    formatter.setAllowsInvalid(false);
+	    
+	    
+		txtClave = new JFormattedTextField(formatter);
+		txtClave.setEditable(true);
+		txtClave.setPreferredSize(new Dimension(250,30));
+		txtClave.setHorizontalAlignment(JTextField.CENTER);
+		
+		//panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
 		panelConFlowLayout.add(txtClave);
 		
 	}
+	
+	
 	
 	private void getLblTexto(){
 		lblTexto = new JLabel("Texto");
@@ -302,8 +307,8 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		panelConFlowLayout.add(areaScrollPane);
 	}
 	
-	private void getBtnEncriptar(){
-		btnEncriptar = new JButton("Encriptar");
+	private void getBtnDesencriptar(){
+		btnEncriptar = new JButton("Desencriptar");
 		btnEncriptar.setHorizontalAlignment(0);
 		btnEncriptar.setPreferredSize(new Dimension(125,40));
 		
@@ -311,35 +316,14 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				setFilasYColumnas();
+				ede.crearClave((int)(long)txtClave.getValue());
+				ede.setTextoEncriptado(txtTexto.getText());
+				ede.desencriptarEscitaloDeEsparta();
+				txtTexto.setText(ede.getTextoSalida());
+				txtTexto.setEditable(false);
 				
-				
-				if(!txtClave.getText().equals("")){
-					
-				
-					//Comprobar longitud
-					if(ede.longitudOk((int)spinnerFilas.getValue(),(int)spinnerColumnas.getValue(),txtTexto.getText())){
-						ede.setFilas((int)spinnerFilas.getValue());
-						ede.setColumnas((int)spinnerColumnas.getValue());
-						ede.setTexto(txtTexto.getText());
-						ede.encriptarEscitaloDeEsparta();
 						
-						txtTexto.setEditable(false);
-						txtTexto.setText(ede.getTextoEncriptado());
-					}
-					else{
-						txtTexto.setText("El texto es demasiado largo y no cabe en el bastón que has elegido. "
-								+ "Por favor, elige un bastón más grande o introduce menos texto.");
-						
-					}//Fin longitud
-					
-				}//Fin clave
-				else{
-					crearDialogAlerta();
-				}
-				
-				
-				
-				
 			}
 			
 		});
@@ -390,6 +374,11 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 		dialogAlerta.add(texto,csTexto);
 		dialogAlerta.add(boton,csBoton);
 		
+	}
+	
+	private void setFilasYColumnas(){
+		ede.setColumnas((int)spinnerColumnas.getValue());
+		ede.setFilas((int)spinnerFilas.getValue());
 	}
 
 }
