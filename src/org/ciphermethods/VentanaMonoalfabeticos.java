@@ -13,28 +13,31 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaMonoPoli extends JFrame {
+public class VentanaMonoalfabeticos extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelConBorderLayout;
 	private JPanel panelConBoxLayout;
 
 	private JLabel lblTitulo;
-	private JLabel lblSubtitulo;
 
-	private JButton btnExtras;
-	private JButton btnMono;
-	private JButton btnPoli;
-
+	private JButton btnEscitaloDeEsparta;
+	private JButton btnAfin;
+	private JButton btnAtbash;
+	
+	private JButton btnAtras;
+	
 	private Dimension dimBtn = new Dimension(200, 30);
-	private Dimension dimVentana = new Dimension(350, 300);
+	private Dimension dimVentana = new Dimension(400, 300);
 
 	/**
 	 * Launch the application.
@@ -43,7 +46,7 @@ public class VentanaMonoPoli extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaMonoPoli frame = new VentanaMonoPoli();
+					VentanaMonoalfabeticos frame = new VentanaMonoalfabeticos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +58,7 @@ public class VentanaMonoPoli extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaMonoPoli() {
+	public VentanaMonoalfabeticos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(dimVentana);
 		setLocationRelativeTo(null);
@@ -74,17 +77,17 @@ public class VentanaMonoPoli extends JFrame {
 		panelConBorderLayout.add(panelConBoxLayout, BorderLayout.CENTER);
 
 		getTituloMonoPoli();
-		getSubtituloMonoPoli();
 
-		getBtnMono();
-		getBtnPoli();
-		getBtnExtras();
-
+		getBtnEscitaloDeEsparta();
+		getBtnAfin();
+		getBtnAtbash();
+		
+		getBtnAtras();
 	}
 
 	private void getTituloMonoPoli() {
 	
-		lblTitulo = new JLabel("Suite de criptografía");
+		lblTitulo = new JLabel("Métodos monoalfabéticos");
 		lblTitulo.setHorizontalAlignment(0);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 28));
 		lblTitulo.setOpaque(true);
@@ -98,49 +101,77 @@ public class VentanaMonoPoli extends JFrame {
 
 	}
 
-	private void getSubtituloMonoPoli() {
 
-		lblSubtitulo = new JLabel("Selección de tipo");
-		lblSubtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblSubtitulo.setFont(new Font("Arial", Font.BOLD, 24));
-		lblSubtitulo.setOpaque(true);
-		lblSubtitulo.setForeground(Color.black);
+
+	private void getBtnEscitaloDeEsparta() {
+		btnEscitaloDeEsparta = new JButton("Escitalo De Esparta");
+		btnEscitaloDeEsparta.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnEscitaloDeEsparta.setMinimumSize(dimBtn);
+		btnEscitaloDeEsparta.setPreferredSize(dimBtn);
+		btnEscitaloDeEsparta.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		
-		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
-		Border border = BorderFactory.createBevelBorder(0);
-		lblSubtitulo.setBorder(BorderFactory.createCompoundBorder(border,paddingBorder));
-
-		panelConBoxLayout.add(lblSubtitulo);
-
-	}
-
-	private void getBtnExtras() {
-		btnExtras = new JButton("Extras");
-		btnExtras.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnExtras.setMinimumSize(dimBtn);
-		btnExtras.setPreferredSize(dimBtn);
-		btnExtras.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-
-		btnExtras.setEnabled(false);
-
-		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnExtras);
-	}
-
-	private void getBtnMono() {
-		btnMono = new JButton("Métodos monoalfabéticos");
-		btnMono.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnMono.setMinimumSize(dimBtn);
-		btnMono.setPreferredSize(dimBtn);
-		btnMono.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-		
-		btnMono.addActionListener(new ActionListener() {
+		btnEscitaloDeEsparta.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				VentanaCryptDecrypt frame= null;
+				
 				try {
-					VentanaMonoalfabeticos frame = new VentanaMonoalfabeticos();
+					frame = new VentanaCryptDecrypt();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				frame.setMetodo("Escitalo");
+				frame.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
+
+		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
+		panelConBoxLayout.add(btnEscitaloDeEsparta);
+	}
+	
+	private void getBtnAfin() {
+		btnAfin = new JButton("Método Afin");
+		btnAfin.setEnabled(false);
+		btnAfin.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnAfin.setMinimumSize(dimBtn);
+		btnAfin.setPreferredSize(dimBtn);
+		btnAfin.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+
+		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
+		panelConBoxLayout.add(btnAfin);
+	}
+	
+	private void getBtnAtbash() {
+		btnAtbash = new JButton("Método Atbash");
+		btnAtbash.setEnabled(false);
+		btnAtbash.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnAtbash.setMinimumSize(dimBtn);
+		btnAtbash.setPreferredSize(dimBtn);
+		btnAtbash.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+
+		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
+		panelConBoxLayout.add(btnAtbash);
+	}
+	
+	private void getBtnAtras() {
+		btnAtras = new JButton("<");
+		btnAtras.setEnabled(true);
+		btnAtras.setAlignmentX(Component.LEFT_ALIGNMENT);
+		
+		
+		btnAtras.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					VentanaMonoPoli frame = new VentanaMonoPoli();
 					frame.setVisible(true);
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -152,35 +183,19 @@ public class VentanaMonoPoli extends JFrame {
 		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnMono);
-	}
-
-	private void getBtnPoli() {
-		btnPoli = new JButton("Métodos polialfabéticos");
-		btnPoli.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnPoli.setMinimumSize(dimBtn);
-		btnPoli.setPreferredSize(dimBtn);
-		btnPoli.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		panelConBoxLayout.add(leftJustify(btnAtras));
 		
-		btnPoli.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					VentanaPolialfabeticos frame = new VentanaPolialfabeticos();
-					frame.setVisible(true);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				
-				dispose();
-				
-			}
-		});
-
-		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnPoli);
 	}
+	
+	private Component leftJustify( JButton btn )  {
+	    Box  b = Box.createHorizontalBox();
+	    b.add( btn );
+	    b.add( Box.createHorizontalGlue() );
+	  
+	    return b;
+	}
+	
+
+	
 
 }

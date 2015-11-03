@@ -8,6 +8,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -81,9 +83,20 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaEscitaloDeEspartaCrypt() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(dimPreferida);
-		setLocationRelativeTo(null);
+		
+		//Tamaño de la ventana
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        //Localizacion de la ventana
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width-w*4)/2;
+        int y = (dim.height-h)/2;
+
+        //Colocara la ventana
+        this.setLocation(x, y);
 		
 		
 		contentPane = new JPanel();
