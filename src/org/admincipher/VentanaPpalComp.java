@@ -9,10 +9,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +24,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 
 public class VentanaPpalComp extends JFrame {
@@ -61,9 +65,8 @@ public class VentanaPpalComp extends JFrame {
 	
 	private JButton btnOcultar;
 	private JButton btnMostrar;
-	
+		
 	private JDialog dialogMensajeOculto;
-
 	/**
 	 * Launch the application.
 	 */
