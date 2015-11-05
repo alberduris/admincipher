@@ -20,14 +20,12 @@ public class EscitaloDeEsparta {
 	
 	public void encriptarEscitaloDeEsparta(){
 		
-		imprimirClave();
+		
 		matrizInicial = new char[numCols][numFilas];
 		
 		rellenarTextoEntrada();
 		
 		rellenarmatrizInicialConEntrada();
-		
-		imprimirMatriz(matrizInicial);
 		
 		//crearClave();
 		//System.out.println("Imprimir clave: ");
