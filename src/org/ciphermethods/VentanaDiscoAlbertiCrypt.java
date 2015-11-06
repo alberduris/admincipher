@@ -47,7 +47,10 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 	private static final long serialVersionUID = 1L;
 	static VentanaDiscoAlbertiCrypt ventana;
 	
-	JPanel centro, sur, norte, superior;
+	private JPanel contentPane;
+	
+	
+	JPanel centro, sur, superior;
 	JPanel discoInterior, clave, movimiento, direccion;
 	
 
@@ -58,7 +61,7 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 	
 	DiscoAlberti dA;
 
-	Dimension dimPreferida = new Dimension(700,380);
+	Dimension dimPreferida = new Dimension(700,500);
 	
 	JButton seleccion;
 	
@@ -74,17 +77,20 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 	public VentanaDiscoAlbertiCrypt() {
 		dA = new DiscoAlberti();
 		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(dimPreferida);
-				
+		setLocationRelativeTo(null);
+		
+		contentPane = new JPanel();
+		setContentPane(contentPane);
 		setLayout(new BorderLayout());
 		setVisible(true);
-		norte = new JPanel();
 		
 		centro = new JPanel();
 		centro.setLayout(new GridLayout(2,1));
 	
-		add(norte,BorderLayout.NORTH);
+		
 		add(centro, BorderLayout.CENTER);
 		getTituloCryptAlberti();
 		superior = new JPanel();
@@ -110,7 +116,8 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 		lblTitulo.setOpaque(true);
 		lblTitulo.setForeground(Color.black);
 		
-		norte.add(lblTitulo);
+		contentPane.add(lblTitulo,BorderLayout.NORTH);
+		
 		
 	}
 	
@@ -120,10 +127,10 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 		lblClave.setHorizontalAlignment(0);
 		lblClave.setOpaque(true);
 		clave.add(lblClave);
-		cl1 = new JComboBox(dA.obtenerDiscoFijo());
+		cl1 = new JComboBox<Object>(dA.obtenerDiscoFijo());
 		cl1.setSelectedIndex(0);
 		clave.add(cl1);
-		cl2 = new JComboBox(dA.obtenerDiscoMovil());
+		cl2 = new JComboBox<Object>(dA.obtenerDiscoMovil());
 		cl2.setSelectedIndex(0);
 		clave.add(cl2);
 		superior.add(clave);
