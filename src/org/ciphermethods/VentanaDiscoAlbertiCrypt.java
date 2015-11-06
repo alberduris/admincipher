@@ -8,11 +8,24 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.KeyEventDispatcher;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,215 +38,170 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.GapContent;
+
+import javafx.scene.control.ComboBox;
 
 public class VentanaDiscoAlbertiCrypt extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JPanel panelConBorderLayout;
-	private JPanel panelConFlowLayout;
+	static VentanaDiscoAlbertiCrypt ventana;
 	
-	private JLabel lblTitulo;
+	JPanel centro, sur, norte, superior;
+	JPanel discoInterior, clave, movimiento, direccion;
 	
-	private JLabel lblMedidas;
+
+	JComboBox cl1, cl2, direc;
+	JSpinner mov;
+	JButton[] disco;
+	JButton btnEncriptar;
 	
-	private JLabel lblFilas;
-	private JSpinner spinnerFilas; 
+	DiscoAlberti dA;
+
+	Dimension dimPreferida = new Dimension(700,380);
 	
-	private JLabel lblColumnas;
-	private JSpinner spinnerColumnas; 
+	JButton seleccion;
 	
-	//private JLabel lblClave;
-	private JButton btnGenerarClave;
-	private JTextField txtClave;
+	JTextArea txtTexto;
 	
-	private JLabel lblTexto;
-	private JTextArea txtTexto;
-	
-	private JButton btnEncriptar;
-	
-	private JDialog dialogAlerta;
-	
-	private Dimension dimPreferida = new Dimension(300,380);
-	
-	private DiscoAlberti dA;
-		
+
 	/**
 	 * Create the frame.
+	 * @throws LineUnavailableException 
+	 * @throws UnsupportedAudioFileException 
+	 * @throws IOException 
 	 */
 	public VentanaDiscoAlbertiCrypt() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		dA = new DiscoAlberti();
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(dimPreferida);
-		setLocationRelativeTo(null);
+				
+		setLayout(new BorderLayout());
+		setVisible(true);
+		norte = new JPanel();
 		
-		
-		contentPane = new JPanel();
-		contentPane.setMaximumSize(dimPreferida);
-		contentPane.setMinimumSize(dimPreferida);
-		contentPane.setPreferredSize(dimPreferida);
-		setContentPane(contentPane);
-		panelConBorderLayout = new JPanel();
-		panelConFlowLayout = new JPanel();
-		
-		panelConBorderLayout.setMaximumSize(dimPreferida);
-		panelConBorderLayout.setMinimumSize(dimPreferida);
-		panelConBorderLayout.setPreferredSize(dimPreferida);
-		
-		panelConFlowLayout.setMaximumSize(dimPreferida);
-		panelConFlowLayout.setMinimumSize(dimPreferida);
-		panelConFlowLayout.setPreferredSize(dimPreferida);
-		
-		
-		
-		BorderLayout border = new BorderLayout();
-		panelConBorderLayout.setLayout(border);
-		FlowLayout box = new FlowLayout(FlowLayout.CENTER);
-		panelConFlowLayout.setLayout(box);
-		
-		
-		contentPane.add(panelConBorderLayout);
-		panelConBorderLayout.add(panelConFlowLayout,BorderLayout.CENTER);
-		
-		getTituloCryptEscitalo();
-		
-		getLblMedidas();
-		
-		getLblFilas();
-		getSpinnerFilas();
-		
-		getLblColumnas();
-		getSpinnerColumnas();
-		
-		getTxtClave();
-		
-		getLblTexto();
-		getTxtTexto();
-		
-		 getBtnEncriptar();
-	}
+		centro = new JPanel();
+		centro.setLayout(new GridLayout(2,1));
 	
-	private void getTituloCryptEscitalo(){
+		add(norte,BorderLayout.NORTH);
+		add(centro, BorderLayout.CENTER);
+		getTituloCryptAlberti();
+		superior = new JPanel();
+		superior.setLayout(new GridLayout(1, 3));
+		crearClave();
+		crearDireccion();
+		crearMovimiento();
+		centro.add(superior);
+		crearOrdenDiscoInterior();
+		sur = new JPanel();
+		add(sur,BorderLayout.SOUTH);
+		sur.setLayout(new BorderLayout());
+		getTxtTexto();
+		getBtnEncriptar();
+	}
 		
-		lblTitulo = new JLabel("Escitalo de Esparta");
+	private void getTituloCryptAlberti(){
+		
+		JLabel lblTitulo;		
+		lblTitulo = new JLabel("Disco de Alberti");
 		lblTitulo.setHorizontalAlignment(0);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
 		lblTitulo.setOpaque(true);
 		lblTitulo.setForeground(Color.black);
 		
-		panelConBorderLayout.add(lblTitulo, BorderLayout.NORTH);
+		norte.add(lblTitulo);
 		
 	}
 	
-	private void getLblMedidas(){
-		lblMedidas = new JLabel("Medidas del bastón: ");
-		lblMedidas.setHorizontalAlignment(0);
-		
-	
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(60,0)));
-		panelConFlowLayout.add(lblMedidas);
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(60,0)));
+	private void crearClave(){
+		clave = new JPanel();
+		JLabel lblClave = new JLabel("Clave: ");
+		lblClave.setHorizontalAlignment(0);
+		lblClave.setOpaque(true);
+		clave.add(lblClave);
+		cl1 = new JComboBox(dA.obtenerDiscoFijo());
+		cl1.setSelectedIndex(0);
+		clave.add(cl1);
+		cl2 = new JComboBox(dA.obtenerDiscoMovil());
+		cl2.setSelectedIndex(0);
+		clave.add(cl2);
+		superior.add(clave);
 	}
 	
-	private void getLblFilas(){
-		lblFilas = new JLabel("Diametro: ");
-		lblFilas.setHorizontalAlignment(0);
-		
-		
-		//panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(lblFilas);
+	private void crearDireccion(){
+		direccion = new JPanel();
+		JLabel lblDireccion = new JLabel("Dirección: ");
+		lblDireccion.setHorizontalAlignment(0);
+		lblDireccion.setOpaque(true);
+		direccion.add(lblDireccion);
+		String[] txt = {"Derecha", "Izquierda"};
+		direc = new JComboBox(txt);
+		direc.setSelectedIndex(0);
+		direccion.add(direc);
+		superior.add(direccion);
 	}
 	
-	private void getSpinnerFilas(){
-		spinnerFilas = new JSpinner();
-		SpinnerNumberModel model =
-		        new SpinnerNumberModel(1, //initial value
-		                               1, //min
-		                               12, //max
+	private void crearMovimiento(){
+		movimiento = new JPanel();
+		JLabel lblMovimiento = new JLabel("Movimiento: ");
+		lblMovimiento.setHorizontalAlignment(0);
+		lblMovimiento.setOpaque(true);
+		movimiento.add(lblMovimiento);
+		mov = new JSpinner();
+		SpinnerNumberModel model = 
+		        new SpinnerNumberModel(0, //initial value
+		                               0, //min
+		                               dA.obtenerDiscoMovil().length, //max
 		                               1);                //step
-		spinnerFilas.setModel(model);
-		
-		spinnerFilas.addChangeListener(new ChangeListener(){
-
-
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				txtTexto.setText("");
-				txtClave.setText("");
+		mov.setModel(model);
+		movimiento.add(mov);
+		superior.add(movimiento);
+	}
+	
+	private void crearOrdenDiscoInterior(){
+		discoInterior = new JPanel();
+		discoInterior.setLayout(new GridLayout(2,1));
+		JPanel interior = new JPanel();
+		JLabel lblDisco = new JLabel("Disco Interno: ");
+		lblDisco.setHorizontalAlignment(0);
+		lblDisco.setOpaque(true);
+		discoInterior.add(lblDisco);
+		centro.add(discoInterior);
+		disco = new JButton[dA.obtenerDiscoMovil().length];
+		for(int i=0; i<dA.obtenerDiscoMovil().length; i++){
+			disco[i] = new JButton(dA.obtenerDiscoMovil()[i]);
+			interior.add(disco[i]);
+			disco[i].addActionListener(new ActionListener(){
 				
-			}
-			
-		});
-		
-	
-		spinnerFilas.setMinimumSize(new Dimension(35,25));
-		spinnerFilas.setPreferredSize(new Dimension(35,25));
-		spinnerFilas.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-		
-		panelConFlowLayout.add(spinnerFilas);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					JButton boton = ((JButton) e.getSource());
+					if(seleccion == null){
+						seleccion = boton;
+						boton.setBackground(Color.GREEN);
+						boton.updateUI();
+					}else{
+						if(seleccion == boton){
+							seleccion = null;
+							boton.setBackground(null);
+							boton.updateUI();
+						}else{
+							String botonAux = boton.getText();
+							boton.setText(seleccion.getText());
+							seleccion.setText(botonAux);
+							seleccion.setBackground(null);
+							seleccion = null;
+							boton.updateUI();
+						}
+					}
+				}
+			});	
+		}
+		discoInterior.add(interior);
 	}
 	
-	private void getLblColumnas(){
-		lblColumnas = new JLabel("Longitud: ");
-		lblColumnas.setHorizontalAlignment(0);
-		
-		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(lblColumnas);
-	}
-	
-	private void getSpinnerColumnas(){
-		spinnerColumnas = new JSpinner();
-		SpinnerNumberModel model =
-		        new SpinnerNumberModel(1, //initial value
-		                               1, //min
-		                               12, //max
-		                               1);                //step
-		spinnerColumnas.setModel(model);
-		
-		spinnerColumnas.addChangeListener(new ChangeListener(){
-
-
-			@Override
-			public void stateChanged(ChangeEvent arg0) {
-				txtTexto.setText("");
-				txtClave.setText("");
-			}
-			
-		});
-		
-	
-		spinnerColumnas.setMinimumSize(new Dimension(35,25));
-		spinnerColumnas.setPreferredSize(new Dimension(35,25));
-		spinnerColumnas.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-		
-		panelConFlowLayout.add(spinnerColumnas);
-	}
-	
-	private void getTxtClave(){
-		txtClave = new JTextField();
-		txtClave.setEditable(false);
-		txtClave.setPreferredSize(new Dimension(125,30));
-		
-		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(txtClave);
-		
-	}
-	
-	private void getLblTexto(){
-		lblTexto = new JLabel("Texto");
-		lblTexto.setHorizontalAlignment(0);
-		
-		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(125,0)));
-		panelConFlowLayout.add(lblTexto);
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(125,0)));
-	}
-	
-	private void getTxtTexto(){
-		      
-		
+	private void getTxtTexto(){	
 		txtTexto = new JTextArea();
 		txtTexto.setRows(10);
 		txtTexto.setEditable(true);
@@ -246,103 +214,38 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 		JScrollPane areaScrollPane = new JScrollPane(txtTexto);
 		areaScrollPane.setVerticalScrollBarPolicy(
 		                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		areaScrollPane.setPreferredSize(new Dimension(250, 100));
+		areaScrollPane.setPreferredSize(new Dimension(this.getSize().width-50, 100));
 		
-		
-		
-		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(areaScrollPane);
+		sur.add(areaScrollPane, BorderLayout.NORTH);
 	}
 	
 	private void getBtnEncriptar(){
 		btnEncriptar = new JButton("Encriptar");
 		btnEncriptar.setHorizontalAlignment(0);
-		btnEncriptar.setPreferredSize(new Dimension(125,40));
+		btnEncriptar.setSize(new Dimension(10,40));
 		
 		btnEncriptar.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				if(!txtClave.getText().equals("")){
-					
-				
-					//Comprobar longitud
-					/*if(ede.longitudOk((int)spinnerFilas.getValue(),(int)spinnerColumnas.getValue(),txtTexto.getText())){
-						ede.setFilas((int)spinnerFilas.getValue());
-						ede.setColumnas((int)spinnerColumnas.getValue());
-						ede.setTexto(txtTexto.getText());
-						ede.encriptarEscitaloDeEsparta();
-						
-						txtTexto.setEditable(false);
-						txtTexto.setText(ede.getTextoEncriptado());
-					}
-					else{
-						txtTexto.setText("El texto es demasiado largo y no cabe en el bastón que has elegido. "
-								+ "Por favor, elige un bastón más grande o introduce menos texto.");
-						
-					}//Fin longitud*/
-					
-				}//Fin clave
-				else{
-					crearDialogAlerta();
+				String discoCompleto = "";
+				for(int i =0; i<disco.length; i++){
+					discoCompleto += disco[i].getText().charAt(0);
 				}
-				
-				
-				
-				
+				dA.crearDiscoInterno(discoCompleto);
+				String clave = cl1.getSelectedItem()+""+cl2.getSelectedItem();
+				dA.introducirClave(clave.charAt(0)+""+clave.charAt(2));
+				dA.introducirMovimiento((int) mov.getValue());
+				if(direc.getSelectedItem() == "Derecha"){
+					dA.introducirDireccion(true);
+				}else{
+					dA.introducirDireccion(false);
+				}
+				txtTexto.setEditable(false);
+				txtTexto.setText(dA.encriptar(txtTexto.getText()));
 			}
-			
 		});
-		
-		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(btnEncriptar);
-	}
-	
-	private void crearDialogAlerta(){
-		GridBagConstraints csTexto = new GridBagConstraints();
-		GridBagConstraints csBoton = new GridBagConstraints();
-		
-		csTexto.weighty = 1;
-		csTexto.gridx = 0;
-		csTexto.gridy = 0;
-		
-		csBoton.weighty = 1;
-		csBoton.gridx = 0;
-		csBoton.gridy = 1;
-		
-		JLabel texto = new JLabel();
-		
-		texto.setText("Primero debes generar una clave");
-		
-		JButton boton = new JButton("Cerrar");
-		
-		boton.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dialogAlerta.dispose();
-			}
-			
-		});
-		
-		dialogAlerta = new JDialog();
-		dialogAlerta.setSize(300,125);
-		dialogAlerta.setModal(false);
-		dialogAlerta.setVisible(true);
-		dialogAlerta.setLocationRelativeTo(contentPane);
-		dialogAlerta.setTitle("Mensaje oculto");
-		
-		
-		dialogAlerta.setLayout(new GridBagLayout());
-		dialogAlerta.getContentPane().setBackground(new Color(0xFFFFFF));
-	
-
-		dialogAlerta.add(texto,csTexto);
-		dialogAlerta.add(boton,csBoton);
-		
+		sur.add(btnEncriptar, BorderLayout.SOUTH);
 	}
 	
 	

@@ -8,6 +8,7 @@ public class DiscoAlberti {
 	
 	public DiscoAlberti(){
 		movimiento =1; 
+		crearDiscoInterno("qixkvptmrdlgazenbosfchty");
 		crearPrincipal();
 	}
 	
@@ -21,6 +22,21 @@ public class DiscoAlberti {
 	
 	public void introducirMovimiento(int pMov){
 		movimiento = pMov;
+	}
+	
+	public String[] obtenerDiscoFijo(){ 
+		String[] orig = new String[original.length];
+		for(int i=0; i<original.length; i++){
+			orig[i] = original[i] + " ";
+		}
+		return orig;
+	}
+	public String[] obtenerDiscoMovil(){ 
+		String[] mov = new String[aMover.length];
+		for(int i=0; i<aMover.length; i++){
+			mov[i] = aMover[i] + " ";
+		}
+		return mov;
 	}
 	
 	private void crearPrincipal(){
@@ -43,9 +59,10 @@ public class DiscoAlberti {
 		}
 		
 	}
-		
-	public String cifrar(String pTexto){
+	
+	public String encriptar(String pTexto){
 		String cifrado ="";
+		pTexto = pTexto.toUpperCase();
 		int aux = 0;
 		for(int i= 0; i < pTexto.length(); i++){
 			if(pTexto.charAt(i) < 90 && pTexto.charAt(i) > 64){
@@ -92,7 +109,7 @@ public class DiscoAlberti {
 		return cifrado;
 	}
 	
-	public String descifrar(String pTexto){
+	public String desencriptar(String pTexto){
 		String descifrado ="";
 		boolean fin = false;
 		for(int i= 0; i < pTexto.length(); i++){
@@ -170,9 +187,9 @@ public class DiscoAlberti {
 		dA.introducirMovimiento(1);
 		dA.introducirDireccion(true);
 		
-		String tx =dA.cifrar("LO LLEVO A CONOCER");
+		String tx =dA.encriptar("LO LLEVO A CONOCER");
 		System.out.println(tx);
 		dA.introducirClave("Ti");
-		System.out.println(dA.descifrar(tx));
+		System.out.println(dA.desencriptar(tx));
 	}
 }
