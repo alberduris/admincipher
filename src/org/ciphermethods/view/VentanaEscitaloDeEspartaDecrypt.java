@@ -11,9 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.Format;
 import java.text.NumberFormat;
-import java.text.ParseException;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -29,7 +27,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
 
 import org.ciphermethods.EscitaloDeEsparta;

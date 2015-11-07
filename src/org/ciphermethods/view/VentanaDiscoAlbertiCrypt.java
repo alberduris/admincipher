@@ -6,157 +6,217 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.KeyEventDispatcher;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.GapContent;
 
 import org.ciphermethods.DiscoAlberti;
 
-import javafx.scene.control.ComboBox;
-
 public class VentanaDiscoAlbertiCrypt extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-	static VentanaDiscoAlbertiCrypt ventana;
-	
 	private JPanel contentPane;
+	private JPanel panelConBorderLayout;
+	private JPanel panelConFlowLayout;
+	
+	//Titulo
+	private JLabel lblTitulo;
+	
+	//Clave
+	private JLabel lblClave;
+	private JComboBox<Object> cl1,cl2;
+	
+	//Direccion
+	private JLabel lblDireccion;
+	private JComboBox<Object> direc;
+	
+	//Movimiento
+	private JLabel lblMovimiento;
+	private JSpinner mov;
+	
+	//Disco Interno
+	private JLabel lblDiscoInterno;
+	private JButton[] disco;
+	private JButton seleccion;
+	
+	//Area de texto
+	private JLabel lblTexto;
+	private JTextArea txtTexto;
+	
+	//Boton encriptar
+	private JButton btnEncriptar;
+	
+	private DiscoAlberti dA;
+	
+	private Dimension dimPreferida = new Dimension(560,435);
 	
 	
-	JPanel centro, sur, superior;
-	JPanel discoInterior, clave, movimiento, direccion;
-	
-
-	JComboBox cl1, cl2, direc;
-	JSpinner mov;
-	JButton[] disco;
-	JButton btnEncriptar;
-	
-	DiscoAlberti dA;
-
-	Dimension dimPreferida = new Dimension(700,370);
-	
-	JButton seleccion;
-	
-	JTextArea txtTexto;
-	
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaDiscoAlbertiCrypt frame = new VentanaDiscoAlbertiCrypt();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
 	 * Create the frame.
-	 * @throws LineUnavailableException 
-	 * @throws UnsupportedAudioFileException 
-	 * @throws IOException 
 	 */
 	public VentanaDiscoAlbertiCrypt() {
 		dA = new DiscoAlberti();
 		
-		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(dimPreferida);
-		setLocationRelativeTo(null);
+		
+		//Tamaño de la ventana
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        //Localizacion de la ventana
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width-w)/2;
+        int y = (dim.height-h)/2;
+
+        //Colocara la ventana
+        this.setLocation(x, y);
+		
 		
 		contentPane = new JPanel();
+		contentPane.setMaximumSize(dimPreferida);
+		contentPane.setMinimumSize(dimPreferida);
+		contentPane.setPreferredSize(dimPreferida);
 		setContentPane(contentPane);
-		setLayout(new BorderLayout());
-		setVisible(true);
+		panelConBorderLayout = new JPanel();
+		panelConFlowLayout = new JPanel();
 		
-		centro = new JPanel();
-		centro.setLayout(new GridLayout(2,1));
-	
+		panelConBorderLayout.setMaximumSize(dimPreferida);
+		panelConBorderLayout.setMinimumSize(dimPreferida);
+		panelConBorderLayout.setPreferredSize(dimPreferida);
 		
-		add(centro, BorderLayout.CENTER);
-		getTituloCryptAlberti();
-		superior = new JPanel();
-		superior.setLayout(new GridLayout(1, 3));
-		crearClave();
-		crearDireccion();
-		crearMovimiento();
-		centro.add(superior);
-		crearOrdenDiscoInterior();
-		sur = new JPanel();
-		add(sur,BorderLayout.SOUTH);
-		sur.setLayout(new BorderLayout());
+		panelConFlowLayout.setMaximumSize(dimPreferida);
+		panelConFlowLayout.setMinimumSize(dimPreferida);
+		panelConFlowLayout.setPreferredSize(dimPreferida);
+		
+		
+		
+		BorderLayout border = new BorderLayout();
+		panelConBorderLayout.setLayout(border);
+		FlowLayout box = new FlowLayout(FlowLayout.CENTER);
+		panelConFlowLayout.setLayout(box);
+		
+		
+		contentPane.add(panelConBorderLayout);
+		panelConBorderLayout.add(panelConFlowLayout,BorderLayout.CENTER);
+		
+		getTituloCryptDiscoAlberti();
+		
+		getLblClave();
+		getComboCl1();
+		getComboCl2();
+		
+		getLblDireccion();
+		getComboDirec();
+		
+		getLblMovimiento();
+		getSpinnerMov();
+		
+		getLblDiscoInterno();
+		getBotonesDiscoInterior();
+		
+		getLblTexto();
 		getTxtTexto();
+		
 		getBtnEncriptar();
+		
+		
 	}
+	
+	private void getTituloCryptDiscoAlberti(){
 		
-	private void getTituloCryptAlberti(){
-		
-		JLabel lblTitulo;		
-		lblTitulo = new JLabel("Disco de Alberti");
+		lblTitulo = new JLabel("Disco De Alberti");
 		lblTitulo.setHorizontalAlignment(0);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
 		lblTitulo.setOpaque(true);
 		lblTitulo.setForeground(Color.black);
 		
-		contentPane.add(lblTitulo,BorderLayout.NORTH);
-		
+		panelConBorderLayout.add(lblTitulo, BorderLayout.NORTH);
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,70)));
 		
 	}
 	
-	private void crearClave(){
-		clave = new JPanel();
-		JLabel lblClave = new JLabel("Clave: ");
+	private void getLblClave(){
+		lblClave = new JLabel("Clave: ");
 		lblClave.setHorizontalAlignment(0);
-		lblClave.setOpaque(true);
-		clave.add(lblClave);
+		
+		panelConFlowLayout.add(lblClave);
+		
+	}
+	
+	private void getComboCl1(){
+		
 		cl1 = new JComboBox<Object>(dA.obtenerDiscoFijo());
 		cl1.setSelectedIndex(0);
-		clave.add(cl1);
+		panelConFlowLayout.add(cl1);
+		
+	}
+	
+	private void getComboCl2(){
+		
 		cl2 = new JComboBox<Object>(dA.obtenerDiscoMovil());
 		cl2.setSelectedIndex(0);
-		clave.add(cl2);
-		superior.add(clave);
+		panelConFlowLayout.add(cl2);
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(25,0)));
+		
 	}
 	
-	private void crearDireccion(){
-		direccion = new JPanel();
-		JLabel lblDireccion = new JLabel("Dirección: ");
+	private void getLblDireccion(){
+		lblDireccion = new JLabel("Dirección: ");
 		lblDireccion.setHorizontalAlignment(0);
-		lblDireccion.setOpaque(true);
-		direccion.add(lblDireccion);
-		String[] txt = {"Derecha", "Izquierda"};
-		direc = new JComboBox(txt);
-		direc.setSelectedIndex(0);
-		direccion.add(direc);
-		superior.add(direccion);
+		
+		panelConFlowLayout.add(lblDireccion);
 	}
 	
-	private void crearMovimiento(){
-		movimiento = new JPanel();
-		JLabel lblMovimiento = new JLabel("Movimiento: ");
+	private void getComboDirec(){
+		String[] txt = {"Derecha", "Izquierda"};
+		direc = new JComboBox<Object>(txt);
+		direc.setSelectedIndex(0);
+		
+		panelConFlowLayout.add(direc);
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(25,0)));
+		
+	}
+	
+	private void getLblMovimiento(){
+		lblMovimiento = new JLabel("Movimiento: ");
 		lblMovimiento.setHorizontalAlignment(0);
-		lblMovimiento.setOpaque(true);
-		movimiento.add(lblMovimiento);
+		
+		panelConFlowLayout.add(lblMovimiento);
+	}
+	
+	private void getSpinnerMov(){
 		mov = new JSpinner();
 		SpinnerNumberModel model = 
 		        new SpinnerNumberModel(0, //initial value
@@ -164,23 +224,36 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 		                               dA.obtenerDiscoMovil().length, //max
 		                               1);                //step
 		mov.setModel(model);
-		movimiento.add(mov);
-		superior.add(movimiento);
+		
+		panelConFlowLayout.add(mov);
 	}
 	
-	private void crearOrdenDiscoInterior(){
-		discoInterior = new JPanel();
-		discoInterior.setLayout(new GridLayout(2,1));
-		JPanel interior = new JPanel();
-		JLabel lblDisco = new JLabel("Disco Interno: ");
-		lblDisco.setHorizontalAlignment(0);
-		lblDisco.setOpaque(true);
-		discoInterior.add(lblDisco);
-		centro.add(discoInterior);
+	private void getLblDiscoInterno(){
+		lblDiscoInterno = new JLabel("Disco interno: ");
+		lblDiscoInterno.setHorizontalAlignment(0);
+		
+		
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(210,0)));
+		panelConFlowLayout.add(lblDiscoInterno);
+		panelConFlowLayout.add(Box.createRigidArea(new Dimension(210,0)));
+		
+	}
+	
+	private void getBotonesDiscoInterior(){
+		
 		disco = new JButton[dA.obtenerDiscoMovil().length];
 		for(int i=0; i<dA.obtenerDiscoMovil().length; i++){
 			disco[i] = new JButton(dA.obtenerDiscoMovil()[i]);
-			interior.add(disco[i]);
+			
+			//Button customization
+			disco[i].setMargin(new Insets(0,0,0,0));
+			disco[i].setFont(new Font("Arial", Font.PLAIN, 14));
+			disco[i].setPreferredSize(new Dimension(40,40));
+			disco[i].setMinimumSize(new Dimension(40,40));
+			disco[i].setMaximumSize(new Dimension(40,40));
+			//End Button customization
+			
+			panelConFlowLayout.add(disco[i]);
 			disco[i].addActionListener(new ActionListener(){
 				
 				@Override
@@ -207,10 +280,17 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 				}
 			});	
 		}
-		discoInterior.add(interior);
+		
 	}
 	
-	private void getTxtTexto(){	
+	private void getLblTexto(){
+		lblTexto = new JLabel("  Texto:   ");
+		lblTexto.setHorizontalAlignment(0);
+		
+		panelConFlowLayout.add(lblTexto);
+	}
+	
+	private void getTxtTexto(){
 		txtTexto = new JTextArea();
 		txtTexto.setRows(10);
 		txtTexto.setEditable(true);
@@ -225,13 +305,13 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 		                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		areaScrollPane.setPreferredSize(new Dimension(this.getSize().width-50, 100));
 		
-		sur.add(areaScrollPane, BorderLayout.NORTH);
+		panelConFlowLayout.add(areaScrollPane);
 	}
 	
 	private void getBtnEncriptar(){
 		btnEncriptar = new JButton("Encriptar");
 		btnEncriptar.setHorizontalAlignment(0);
-		btnEncriptar.setSize(new Dimension(10,40));
+		btnEncriptar.setPreferredSize(new Dimension(125,40));
 		
 		btnEncriptar.addActionListener(new ActionListener(){
 
@@ -254,20 +334,12 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 				txtTexto.setText(dA.encriptar(txtTexto.getText()));
 			}
 		});
-		sur.add(btnEncriptar, BorderLayout.SOUTH);
+		
+		panelConFlowLayout.add(btnEncriptar);
 	}
 	
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaDiscoAlbertiCrypt frame = new VentanaDiscoAlbertiCrypt();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
+	
+
 }
