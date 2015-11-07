@@ -63,7 +63,7 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 	
 	DiscoAlberti dA;
 
-	Dimension dimPreferida = new Dimension(700,500);
+	Dimension dimPreferida = new Dimension(700,370);
 	
 	JButton seleccion;
 	
