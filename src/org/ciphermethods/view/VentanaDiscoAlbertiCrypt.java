@@ -1,4 +1,4 @@
-package org.ciphermethods;
+package org.ciphermethods.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -39,6 +39,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.GapContent;
+
+import org.ciphermethods.DiscoAlberti;
 
 import javafx.scene.control.ComboBox;
 

@@ -1,4 +1,4 @@
-package org.ciphermethods;
+package org.ciphermethods.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

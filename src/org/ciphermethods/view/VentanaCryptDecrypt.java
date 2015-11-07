@@ -1,4 +1,4 @@
-package org.ciphermethods;
+package org.ciphermethods.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,31 +13,29 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaMonoalfabeticos extends JFrame {
+public class VentanaCryptDecrypt extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelConBorderLayout;
 	private JPanel panelConBoxLayout;
 
 	private JLabel lblTitulo;
-
-	private JButton btnEscitaloDeEsparta;
-	private JButton btnAfin;
-	private JButton btnAtbash;
+	private String nombreMetodo;
+	
+	private JButton btnEncriptar;
+	private JButton btnDesencriptar;
 	
 	private JButton btnAtras;
-	
+
 	private Dimension dimBtn = new Dimension(200, 30);
-	private Dimension dimVentana = new Dimension(400, 300);
+	private Dimension dimVentana = new Dimension(350, 240);
 
 	/**
 	 * Launch the application.
@@ -46,7 +44,7 @@ public class VentanaMonoalfabeticos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaMonoalfabeticos frame = new VentanaMonoalfabeticos();
+					VentanaCryptDecrypt frame = new VentanaCryptDecrypt();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,11 +56,13 @@ public class VentanaMonoalfabeticos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaMonoalfabeticos() {
+	public VentanaCryptDecrypt() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(dimVentana);
 		setLocationRelativeTo(null);
 
+		//setMetodo();
+		
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		panelConBorderLayout = new JPanel();
@@ -77,17 +77,19 @@ public class VentanaMonoalfabeticos extends JFrame {
 		panelConBorderLayout.add(panelConBoxLayout, BorderLayout.CENTER);
 
 		getTituloMonoPoli();
+		
 
-		getBtnEscitaloDeEsparta();
-		getBtnAfin();
-		getBtnAtbash();
+		getBtnEncriptar();
+		getBtnDesencriptar();
 		
 		getBtnAtras();
+		
+
 	}
 
 	private void getTituloMonoPoli() {
 	
-		lblTitulo = new JLabel("Métodos monoalfabéticos");
+		lblTitulo = new JLabel(nombreMetodo);
 		lblTitulo.setHorizontalAlignment(0);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 28));
 		lblTitulo.setOpaque(true);
@@ -102,62 +104,83 @@ public class VentanaMonoalfabeticos extends JFrame {
 	}
 
 
-
-	private void getBtnEscitaloDeEsparta() {
-		btnEscitaloDeEsparta = new JButton("Escitalo De Esparta");
-		btnEscitaloDeEsparta.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnEscitaloDeEsparta.setMinimumSize(dimBtn);
-		btnEscitaloDeEsparta.setPreferredSize(dimBtn);
-		btnEscitaloDeEsparta.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+	private void getBtnEncriptar() {
+		btnEncriptar = new JButton("Encriptar");
+		btnEncriptar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnEncriptar.setMinimumSize(dimBtn);
+		btnEncriptar.setPreferredSize(dimBtn);
+		btnEncriptar.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		
-		btnEscitaloDeEsparta.addActionListener(new ActionListener() {
+		btnEncriptar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				VentanaCryptDecrypt frame= null;
 				
-				try {
-					frame = new VentanaCryptDecrypt();
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				
-				frame.setMetodo("Escitalo");
-				frame.setVisible(true);
-				
-				dispose();
 				
 			}
 		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnEscitaloDeEsparta);
+		panelConBoxLayout.add(btnEncriptar);
 	}
-	
-	private void getBtnAfin() {
-		btnAfin = new JButton("Método Afin");
-		btnAfin.setEnabled(false);
-		btnAfin.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnAfin.setMinimumSize(dimBtn);
-		btnAfin.setPreferredSize(dimBtn);
-		btnAfin.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+
+	private void getBtnDesencriptar() {
+		btnDesencriptar = new JButton("Desencriptar");
+		btnDesencriptar.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnDesencriptar.setMinimumSize(dimBtn);
+		btnDesencriptar.setPreferredSize(dimBtn);
+		btnDesencriptar.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnDesencriptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			
+				
+			}
+		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnAfin);
+		panelConBoxLayout.add(btnDesencriptar);
 	}
 	
-	private void getBtnAtbash() {
-		btnAtbash = new JButton("Método Atbash");
-		btnAtbash.setEnabled(false);
-		btnAtbash.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnAtbash.setMinimumSize(dimBtn);
-		btnAtbash.setPreferredSize(dimBtn);
-		btnAtbash.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+	public void setMetodo(String pClave){
+		
+		switch(pClave){
+			case "Escitalo": setEscitalo();
+			break;
+		}
+		//TODO
+	}
 
-		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnAtbash);
+	private void setEscitalo() {
+		nombreMetodo = "Escitalo De Esparta";
+		getTituloMonoPoli();
+		btnEncriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					VentanaEscitaloDeEspartaCrypt frame = new VentanaEscitaloDeEspartaCrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDesencriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					VentanaEscitaloDeEspartaDecrypt frame = new VentanaEscitaloDeEspartaDecrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 	}
 	
 	private void getBtnAtras() {
@@ -194,8 +217,5 @@ public class VentanaMonoalfabeticos extends JFrame {
 	  
 	    return b;
 	}
-	
-
-	
 
 }

@@ -1,4 +1,4 @@
-package org.ciphermethods;
+package org.ciphermethods.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,14 +13,16 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-public class VentanaPolialfabeticos extends JFrame {
+public class VentanaMonoalfabeticos extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel panelConBorderLayout;
@@ -28,8 +30,8 @@ public class VentanaPolialfabeticos extends JFrame {
 
 	private JLabel lblTitulo;
 
-	private JButton btnDiscoAlberti;
-	private JButton btnVigenere;
+	private JButton btnEscitaloDeEsparta;
+	private JButton btnAfin;
 	private JButton btnAtbash;
 	
 	private JButton btnAtras;
@@ -44,7 +46,7 @@ public class VentanaPolialfabeticos extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VentanaPolialfabeticos frame = new VentanaPolialfabeticos();
+					VentanaMonoalfabeticos frame = new VentanaMonoalfabeticos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +58,7 @@ public class VentanaPolialfabeticos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaPolialfabeticos() {
+	public VentanaMonoalfabeticos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(dimVentana);
 		setLocationRelativeTo(null);
@@ -76,16 +78,16 @@ public class VentanaPolialfabeticos extends JFrame {
 
 		getTituloMonoPoli();
 
-		getBtnDiscoAlberti();
-		getBtnVigenere();
-		//getBtnAtbash();
+		getBtnEscitaloDeEsparta();
+		getBtnAfin();
+		getBtnAtbash();
 		
 		getBtnAtras();
 	}
 
 	private void getTituloMonoPoli() {
 	
-		lblTitulo = new JLabel("Métodos polialfabéticos");
+		lblTitulo = new JLabel("Métodos monoalfabéticos");
 		lblTitulo.setHorizontalAlignment(0);
 		lblTitulo.setFont(new Font("Arial", Font.BOLD, 28));
 		lblTitulo.setOpaque(true);
@@ -101,28 +103,49 @@ public class VentanaPolialfabeticos extends JFrame {
 
 
 
-	private void getBtnDiscoAlberti() {
-		btnDiscoAlberti = new JButton("Disco de Alberti");
-		btnDiscoAlberti.setEnabled(false);
-		btnDiscoAlberti.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnDiscoAlberti.setMinimumSize(dimBtn);
-		btnDiscoAlberti.setPreferredSize(dimBtn);
-		btnDiscoAlberti.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+	private void getBtnEscitaloDeEsparta() {
+		btnEscitaloDeEsparta = new JButton("Escitalo De Esparta");
+		btnEscitaloDeEsparta.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnEscitaloDeEsparta.setMinimumSize(dimBtn);
+		btnEscitaloDeEsparta.setPreferredSize(dimBtn);
+		btnEscitaloDeEsparta.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnEscitaloDeEsparta.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaCryptDecrypt frame= null;
+				
+				try {
+					frame = new VentanaCryptDecrypt();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				frame.setMetodo("Escitalo");
+				frame.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnDiscoAlberti);
+		panelConBoxLayout.add(btnEscitaloDeEsparta);
 	}
 	
-	private void getBtnVigenere() {
-		btnVigenere = new JButton("Vigenere");
-		btnVigenere.setEnabled(false);
-		btnVigenere.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnVigenere.setMinimumSize(dimBtn);
-		btnVigenere.setPreferredSize(dimBtn);
-		btnVigenere.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+	private void getBtnAfin() {
+		btnAfin = new JButton("Método Afin");
+		btnAfin.setEnabled(false);
+		btnAfin.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnAfin.setMinimumSize(dimBtn);
+		btnAfin.setPreferredSize(dimBtn);
+		btnAfin.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnVigenere);
+		panelConBoxLayout.add(btnAfin);
 	}
 	
 	private void getBtnAtbash() {
@@ -171,6 +194,7 @@ public class VentanaPolialfabeticos extends JFrame {
 	  
 	    return b;
 	}
+	
 
 	
 
