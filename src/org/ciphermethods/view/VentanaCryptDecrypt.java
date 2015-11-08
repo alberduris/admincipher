@@ -153,6 +153,8 @@ public class VentanaCryptDecrypt extends JFrame {
 		switch(pClave){
 			case "Escitalo": setEscitalo();
 			break;
+			case "Afin": setAfin();
+			break;
 		}
 		//TODO
 	}
@@ -164,6 +166,7 @@ public class VentanaCryptDecrypt extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					//Variable
 					VentanaEscitaloDeEspartaCrypt frame = new VentanaEscitaloDeEspartaCrypt();
 					frame.setVisible(true);
 				} catch (Exception e1) {
@@ -175,7 +178,38 @@ public class VentanaCryptDecrypt extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					//Variable
 					VentanaEscitaloDeEspartaDecrypt frame = new VentanaEscitaloDeEspartaDecrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+	}
+	
+	private void setAfin() {
+		nombreMetodo = "Método Afín";
+		getTituloMonoPoli();
+		btnEncriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaAfinCrypt frame = new VentanaAfinCrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDesencriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaAfinDecrypt frame = new VentanaAfinDecrypt();
 					frame.setVisible(true);
 				} catch (Exception e1) {
 					e1.printStackTrace();

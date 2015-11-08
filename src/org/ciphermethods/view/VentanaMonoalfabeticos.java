@@ -138,11 +138,32 @@ public class VentanaMonoalfabeticos extends JFrame {
 	
 	private void getBtnAfin() {
 		btnAfin = new JButton("Método Afin");
-		btnAfin.setEnabled(false);
+		btnAfin.setEnabled(true);
 		btnAfin.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnAfin.setMinimumSize(dimBtn);
 		btnAfin.setPreferredSize(dimBtn);
 		btnAfin.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnAfin.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCryptDecrypt frame= null;
+				
+				try {
+					frame = new VentanaCryptDecrypt();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				frame.setMetodo("Afin");
+				frame.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
 		panelConBoxLayout.add(btnAfin);

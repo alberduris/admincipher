@@ -4,13 +4,35 @@ import java.math.BigInteger;
 
 public class Afin {
 	
-	private static int primeraClave = 27; 
-	private static int segundaClave = 7;
+	private static int primeraClave = 0; 
+	private static int segundaClave = 0;
 	private static int modulo = 26; //Longitud del alfabeto - 26 porque no se admite la 'ñ'
 	
 	private static String textoEntrada = "";
 	private static String textoEncriptado = "";
 	private static String textoSalida = "";
+	
+	public Afin(){
+		
+	}
+	
+	public void setPrimeraClave(Integer pPrimeraClave){
+		primeraClave = pPrimeraClave;
+	}
+	
+	public void setSegundaClave(Integer pSegundaClave){
+		segundaClave = pSegundaClave;
+	}
+	
+	public void setTextoAEncriptar(String pTexto){
+		textoEntrada = pTexto;
+	}
+	
+	public void setTextoADesencriptar(String pTexto) {
+		textoEncriptado = pTexto;
+		
+	}
+	
 
 	
 	/*
@@ -19,6 +41,10 @@ public class Afin {
 	 * Nota: La primera letra del alfabeto utilizado es la 'a' de ahí su uso
 	 */
 	public String encriptarAfin() {
+		
+		System.out.println(primeraClave);
+		System.out.println(segundaClave);
+		System.out.println(textoEntrada);
 		
 	    //Recorremos el textoEntrada 
 	    for (int i = 0; i < textoEntrada.length(); i++) {
@@ -67,6 +93,13 @@ public class Afin {
 	    }
 	    return textoSalida;
 	}
+	
+	public void reset(){
+		primeraClave = 0;
+		segundaClave = 0;
+		textoEncriptado = "";
+		textoEntrada = "";
+	}
 
 	public static void main(String[] args) {
 	    Afin afin = new Afin();
@@ -80,5 +113,7 @@ public class Afin {
 	    System.out.println();
 	    System.out.println("Desencriptado: " + deciphered);
 	}
+
+	
 
 }
