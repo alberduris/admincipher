@@ -8,7 +8,7 @@ public class DiscoAlberti {
 	
 	public DiscoAlberti(){
 		movimiento =1; 
-		crearDiscoInterno("qixkvptmrdlgazenbosfchty");
+		crearDiscoInterno("qixkvptmrdlgazenbosfch&y");
 		crearPrincipal();
 	}
 	

@@ -1,4 +1,4 @@
-package org.labo2;
+package org.ciphermethods;
 
 public class DescifrarKasiski {
 	private static DescifrarKasiski miKasiski;

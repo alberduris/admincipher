@@ -1,4 +1,4 @@
-package org.labo2;
+package org.ciphermethods.view;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
+
+import org.ciphermethods.DescifrarKasiski;
+import org.ciphermethods.Vigenere;
 
 public class VistaVigenere extends JFrame {
 	private static final long serialVersionUID = 1L;
