@@ -148,16 +148,16 @@ public class VentanaPolialfabeticos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VistaVigenere frame= null;
+				VentanaCryptDecrypt frame= null;
 				
 				try {
-					frame = new VistaVigenere();
+					frame = new VentanaCryptDecrypt();
 					
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 				
-				
+				frame.setMetodo("Vigenere");
 				frame.setVisible(true);
 				
 				dispose();

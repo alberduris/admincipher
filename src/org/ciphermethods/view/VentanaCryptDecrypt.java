@@ -148,17 +148,34 @@ public class VentanaCryptDecrypt extends JFrame {
 		panelConBoxLayout.add(btnDesencriptar);
 	}
 	
-	public void setMetodo(String pClave){
+	private void setVigenere() {
+		nombreMetodo = "Vigenère";
+		getTituloMonoPoli();
+		btnEncriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaVigenereCrypt frame = new VentanaVigenereCrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDesencriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaVigenereDecrypt frame = new VentanaVigenereDecrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		
-		switch(pClave){
-			case "Escitalo": setEscitalo();
-			break;
-			case "Afin": setAfin();
-			break;
-			case "Alberti": setDiscoAlberti();
-			break;
-		}
-		//TODO
 	}
 
 	private void setDiscoAlberti() {
@@ -285,5 +302,21 @@ public class VentanaCryptDecrypt extends JFrame {
 	  
 	    return b;
 	}
+	
+public void setMetodo(String pClave){
+		
+		switch(pClave){
+			case "Escitalo": setEscitalo();
+			break;
+			case "Afin": setAfin();
+			break;
+			case "Alberti": setDiscoAlberti();
+			break;
+			case "Vigenere": setVigenere();
+		}
+		//TODO
+	}
+
+
 
 }
