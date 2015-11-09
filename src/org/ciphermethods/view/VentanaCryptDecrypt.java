@@ -155,8 +155,40 @@ public class VentanaCryptDecrypt extends JFrame {
 			break;
 			case "Afin": setAfin();
 			break;
+			case: "Alberti": setDiscoAlberti();
+			break;
 		}
 		//TODO
+	}
+
+	private void setDiscoAlberti() {
+		nombreMetodo = "Disco De Alberti";
+		getTituloMonoPoli();
+		btnEncriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaDiscoAlbertiCrypt frame = new VentanaDiscoAlbertiCrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDesencriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					//VentanaDiscoAlbertiDecrypt frame = new VentanaDiscoAlbertiDecrypt();
+					//frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 	}
 
 	private void setEscitalo() {

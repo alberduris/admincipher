@@ -110,6 +110,27 @@ public class VentanaPolialfabeticos extends JFrame {
 		btnDiscoAlberti.setMinimumSize(dimBtn);
 		btnDiscoAlberti.setPreferredSize(dimBtn);
 		btnDiscoAlberti.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnDiscoAlberti.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCryptDecrypt frame= null;
+				
+				try {
+					frame = new VentanaCryptDecrypt();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				frame.setMetodo("Alberti");
+				frame.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
 		panelConBoxLayout.add(btnDiscoAlberti);
@@ -117,11 +138,32 @@ public class VentanaPolialfabeticos extends JFrame {
 	
 	private void getBtnVigenere() {
 		btnVigenere = new JButton("Vigenere");
-		btnVigenere.setEnabled(false);
+		btnVigenere.setEnabled(true);
 		btnVigenere.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnVigenere.setMinimumSize(dimBtn);
 		btnVigenere.setPreferredSize(dimBtn);
 		btnVigenere.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnVigenere.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VistaVigenere frame= null;
+				
+				try {
+					frame = new VistaVigenere();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				
+				frame.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
 		panelConBoxLayout.add(btnVigenere);
