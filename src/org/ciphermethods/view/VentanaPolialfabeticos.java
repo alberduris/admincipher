@@ -105,7 +105,7 @@ public class VentanaPolialfabeticos extends JFrame {
 
 	private void getBtnDiscoAlberti() {
 		btnDiscoAlberti = new JButton("Disco de Alberti");
-		btnDiscoAlberti.setEnabled(false);
+		btnDiscoAlberti.setEnabled(true);
 		btnDiscoAlberti.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnDiscoAlberti.setMinimumSize(dimBtn);
 		btnDiscoAlberti.setPreferredSize(dimBtn);

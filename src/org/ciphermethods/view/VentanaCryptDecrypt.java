@@ -155,7 +155,7 @@ public class VentanaCryptDecrypt extends JFrame {
 			break;
 			case "Afin": setAfin();
 			break;
-			case: "Alberti": setDiscoAlberti();
+			case "Alberti": setDiscoAlberti();
 			break;
 		}
 		//TODO
@@ -181,8 +181,8 @@ public class VentanaCryptDecrypt extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					//Variable
-					//VentanaDiscoAlbertiDecrypt frame = new VentanaDiscoAlbertiDecrypt();
-					//frame.setVisible(true);
+					VentanaDiscoAlbertiDecrypt frame = new VentanaDiscoAlbertiDecrypt();
+					frame.setVisible(true);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
