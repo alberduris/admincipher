@@ -337,9 +337,4 @@ public class VentanaDiscoAlbertiCrypt extends JFrame {
 		
 		panelConFlowLayout.add(btnEncriptar);
 	}
-	
-	
-	
-	
-
 }

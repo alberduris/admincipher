@@ -10,19 +10,18 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
+
+import org.ciphermethods.Vigenere;
 
 public class VentanaVigenereCrypt extends JFrame {
 
@@ -143,15 +142,8 @@ public class VentanaVigenereCrypt extends JFrame {
 		panelConFlowLayout.add(Box.createRigidArea(new Dimension(100,0)));
 	}
 	
-	private void getTxtClave(){
-		NumberFormat format = NumberFormat.getInstance();
-		format.setGroupingUsed(false);
-		
-		NumberFormatter formatter = new NumberFormatter(format);
-	    formatter.setAllowsInvalid(false);
-	    
-	    
-		txtClave = new JFormattedTextField(formatter);
+	private void getTxtClave(){	    
+		txtClave = new JTextField();
 		txtClave.setEditable(true);
 		txtClave.setPreferredSize(new Dimension(210,30));
 		txtClave.setHorizontalAlignment(JTextField.CENTER);
@@ -200,9 +192,13 @@ public class VentanaVigenereCrypt extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			
-				//TODO
-				
+			Vigenere vg = Vigenere.getVigenere();
+			vg.introducirTexto(txtTexto.getText().toUpperCase());
+			vg.introducirClave(txtClave.getText().toUpperCase());
+			txtTexto.setText(vg.cifrar());
+			txtTexto.setEditable(false);
+			txtClave.setEditable(false);
+			vg.reset();
 			}
 			
 		});

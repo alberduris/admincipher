@@ -24,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
 
+import org.ciphermethods.Vigenere;
+
 public class VentanaVigenereDecrypt extends JFrame {
 
 	/**
@@ -144,14 +146,7 @@ public class VentanaVigenereDecrypt extends JFrame {
 	}
 	
 	private void getTxtClave(){
-		NumberFormat format = NumberFormat.getInstance();
-		format.setGroupingUsed(false);
-		
-		NumberFormatter formatter = new NumberFormatter(format);
-	    formatter.setAllowsInvalid(false);
-	    
-	    
-		txtClave = new JFormattedTextField(formatter);
+		txtClave = new JTextField();
 		txtClave.setEditable(true);
 		txtClave.setPreferredSize(new Dimension(210,30));
 		txtClave.setHorizontalAlignment(JTextField.CENTER);
@@ -200,9 +195,13 @@ public class VentanaVigenereDecrypt extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-			
-				//TODO
-				
+				Vigenere vg = Vigenere.getVigenere();
+				vg.introducirTexto(txtTexto.getText().toUpperCase());
+				vg.introducirClave(txtClave.getText().toUpperCase());
+				txtTexto.setText(vg.descifrar());
+				txtTexto.setEditable(false);
+				txtClave.setEditable(false);
+				vg.reset();
 			}
 			
 		});

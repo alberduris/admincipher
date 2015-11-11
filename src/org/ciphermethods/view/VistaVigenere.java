@@ -218,7 +218,7 @@ public class VistaVigenere extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Vigenere dV = Vigenere.getDescifrarVigenere();
+				Vigenere dV = Vigenere.getVigenere();
 				dV.introducirTexto(texto.getText());
 				dV.introducirClave(clave.getText());
 				JDialog jD = new JDialog();
@@ -466,7 +466,7 @@ public class VistaVigenere extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Vigenere dV = Vigenere.getDescifrarVigenere();
+				Vigenere dV = Vigenere.getVigenere();
 				dV.introducirTexto(texto.getText());
 				dV.introducirClave(clave.getText());
 				JDialog jD = new JDialog();

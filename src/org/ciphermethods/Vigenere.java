@@ -13,7 +13,7 @@ public class Vigenere {
 		texto = "";
 	}
 	
-	public static Vigenere getDescifrarVigenere(){
+	public static Vigenere getVigenere(){
 		if(miVigenere == null){
 			miVigenere = new Vigenere();
 		}
@@ -25,6 +25,8 @@ public class Vigenere {
 		for(int i =0; i<pTexto.length(); i++){
 			if(pTexto.charAt(i) <= 90 && pTexto.charAt(i) >= 65){
 				texto += pTexto.charAt(i);
+			}else if(pTexto.charAt(i) == 'Ñ'){
+				texto += 'N';
 			}
 		}
 	}
@@ -33,7 +35,11 @@ public class Vigenere {
 		int i =0;
 		textoClave = "";
 		while(textoClave.length() < texto.length()){
-			textoClave += pClave.charAt(i);
+			if(pClave.charAt(i) < 91 && pClave.charAt(i) > 64) {
+				textoClave += pClave.charAt(i);
+			}else if(pClave.charAt(i) == 'Ñ'){
+				textoClave += 'N';
+			}
 			i++;
 			if(i == pClave.length()){
 				i = 0;
@@ -105,10 +111,16 @@ public class Vigenere {
 		char caracter = (char) (i+65);
 		return caracter;
 	}
+	
+	public void reset(){
+		textoClave = "";
+		texto = "";
+		textoModificado = "";
+	}
 
 	
 	public static void main(String [] args){
-		Vigenere dV = Vigenere.getDescifrarVigenere();
+		Vigenere dV = Vigenere.getVigenere();
 		dV.introducirTexto("WEDFM     LHRRV     WCODE     JBORC     WLIEK     VHIEN     MWASV     WFEED     WFUIS  GXSKB     SGGLV     SWOEK     VBEYK     TBAVX     LKAUY     WGLRM     SLAZX     VNDRL     DXMVX   LXNRN     AXYRE     FJUVO     DWOTD     GKDFB     EBATY     FXLSK     DVOEK     TBEID     GIOIR   AZIVX     WXRRD     SGACD     GLUGS     KHQLO     FHEIK     VXSLZ     GGEIA     MXPFB     SELZR  MUIVC     WXNKB     SWOVV     SLEJS     FHLRZ     GEITS     SGOVX     UHNKB     SUACK     HBSKK  VXAHE     WECIS  EXNPI     SBBRK     SUAEN     GGAIO     DTSLX     LHCLK     FWOCK     WLPFC    SRLRM     JBAUK     VXLDE     WKTFK     UNDZO     JHNUO     KIAMY     JBDRC     SEAAO     XTTLB   SLACD     SGDFN     WEORV     LHDVE     FTRDK     JBOYK     TBATK     AWOJY     TKECK     EXSRV  SLHRL     ATMZB     SWOCK     KAASS     SOIJD     GRDVC     HNEJR     SUIRR     MBDFZ     GKLRR  SUIKK     UBOEE     FTMRX     GLOCS     LTRZK     QOIMK     UHMFE     FTAIK     FTACV     AEAYK    TBAEN     WCAUY    WGCVB     JTDRM     GGLCK     NXEEO     DVURB     LHLCO     FTDVD   WKRFB     SVUUS     GEAGY     DBCZK     QXLAE     WSEIK     KNDVL     WKTIK     TTJFV     WLCFC   LHCRJ     SKLRW     SGOGO     JHLRM     SSAIY     FRTFN     GLLVK     YTRIK     JHNLX     VXDFZ   GKQLO     WKAMS     YHRFC     SVOIX     GLIVX     WELRB     SWITK     KXJLX     LTTFN     SEAWE    WKZRN     WNNYY     EURVP     MXRKO     INEYK     UXRTY     FXLCK     INECE     RBBRK     SKRFT   SKSFL     JXECC     MVEJY     UHMFC     WGTVX     UBAIV     SWEHE     AXNVB     STQLO     DEADK  FHDVC     HNEJN     WNNRV     SKGRZ     SNSRK     DCUVJ     KXLVY     UNRIS     GWAIV     WEAGV    MFAGK     JTQLO     VXCCK     JTSVZ     GKEJM     JBTFV     SFAEY     WGTFX     UXSVC     UKISS  GLOPV     SFAEY     VXRRW     AKOIE     ASAJO     KBNRN     GOICW     WGTVZ     GKECN     GVTFB   WGECR     GLPZD     SEYUO     KMRFJ     SWOTY     FXNJK     FTMZO     FMOVX     DTSRV     SWEUS  KXCTS     GGHVR     WVHFT     MLTZM  ATRVV     SMOKS     LNLRN     GEADK     FHEJM     JBTFZ   GKRRW     GGGFW     WSDVV     SLEIX     S ");
 		dV.introducirClave("STARK");
 		System.out.println(dV.descifrar());
