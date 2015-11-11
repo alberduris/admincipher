@@ -268,6 +268,36 @@ public class VentanaCryptDecrypt extends JFrame {
 		
 	}
 	
+	private void setDiccionario() {
+		nombreMetodo = "Método Diccionario";
+		getTituloMonoPoli();
+		btnEncriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaDiccionarioCrypt frame = new VentanaDiccionarioCrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnDesencriptar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					//Variable
+					VentanaDiccionarioDecrypt frame = new VentanaDiccionarioDecrypt();
+					frame.setVisible(true);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+	}
+	
 	private void getBtnAtras() {
 		btnAtras = new JButton("<");
 		btnAtras.setEnabled(true);
@@ -313,9 +343,14 @@ public void setMetodo(String pClave){
 			case "Alberti": setDiscoAlberti();
 			break;
 			case "Vigenere": setVigenere();
+			break;
+			case "Diccionario": setDiccionario();
+			break;
 		}
 		//TODO
 	}
+
+
 
 
 

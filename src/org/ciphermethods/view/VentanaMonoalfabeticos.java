@@ -32,7 +32,7 @@ public class VentanaMonoalfabeticos extends JFrame {
 
 	private JButton btnEscitaloDeEsparta;
 	private JButton btnAfin;
-	private JButton btnAtbash;
+	private JButton btnDiccionario;
 	
 	private JButton btnAtras;
 	
@@ -170,15 +170,36 @@ public class VentanaMonoalfabeticos extends JFrame {
 	}
 	
 	private void getBtnAtbash() {
-		btnAtbash = new JButton("Método Atbash");
-		btnAtbash.setEnabled(false);
-		btnAtbash.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnAtbash.setMinimumSize(dimBtn);
-		btnAtbash.setPreferredSize(dimBtn);
-		btnAtbash.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		btnDiccionario = new JButton("Método Diccionario");
+		btnDiccionario.setEnabled(true);
+		btnDiccionario.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnDiccionario.setMinimumSize(dimBtn);
+		btnDiccionario.setPreferredSize(dimBtn);
+		btnDiccionario.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
+		
+		btnDiccionario.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCryptDecrypt frame= null;
+				
+				try {
+					frame = new VentanaCryptDecrypt();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				frame.setMetodo("Diccionario");
+				frame.setVisible(true);
+				
+				dispose();
+				
+			}
+		});
 
 		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnAtbash);
+		panelConBoxLayout.add(btnDiccionario);
 	}
 	
 	private void getBtnAtras() {

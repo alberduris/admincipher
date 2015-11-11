@@ -28,14 +28,14 @@ public class Diccionario {
 		
 		for(int i = 0; i < textoEntrada.length(); i++ ){
 			auxEntrada = textoEntrada.charAt(i);
-			if(auxEntrada != ' '){
-				if(auxEntrada == 'v') auxEntrada = 'u';
-				posAlfabetoOriginal = alfabetoOriginal.indexOf(auxEntrada);
-				auxEncriptado = alfabetoClave.get(posAlfabetoOriginal);
-			}
-			else{
-				auxEncriptado = ' ';
-			}
+				if(auxEntrada != ' ' && Character.isLetter(auxEntrada)){
+					if(auxEntrada == 'ñ') auxEntrada = 'n';
+					posAlfabetoOriginal = alfabetoOriginal.indexOf(auxEntrada);
+					auxEncriptado = alfabetoClave.get(posAlfabetoOriginal);
+				}
+				else{
+					auxEncriptado = ' ';
+				}
 			strBuilder.append(auxEncriptado);
 		}
 		
@@ -73,8 +73,8 @@ public void desencriptarDiccionario(){
 		alfabetoClave.add('i');alfabetoClave.add('j');alfabetoClave.add('k');alfabetoClave.add('l');
 		alfabetoClave.add('m');alfabetoClave.add('n');alfabetoClave.add('o');alfabetoClave.add('p');
 		alfabetoClave.add('q');alfabetoClave.add('r');alfabetoClave.add('s');alfabetoClave.add('t');
-		alfabetoClave.add('u');alfabetoClave.add('w');alfabetoClave.add('x');alfabetoClave.add('y');
-		alfabetoClave.add('z');
+		alfabetoClave.add('u');alfabetoClave.add('v');alfabetoClave.add('w');alfabetoClave.add('x');
+		alfabetoClave.add('y');alfabetoClave.add('z');
 		
 		alfabetoOriginal = new ArrayList<Character>();
 		alfabetoOriginal.add('a');alfabetoOriginal.add('b');alfabetoOriginal.add('c');alfabetoOriginal.add('d');
@@ -82,8 +82,8 @@ public void desencriptarDiccionario(){
 		alfabetoOriginal.add('i');alfabetoOriginal.add('j');alfabetoOriginal.add('k');alfabetoOriginal.add('l');
 		alfabetoOriginal.add('m');alfabetoOriginal.add('n');alfabetoOriginal.add('o');alfabetoOriginal.add('p');
 		alfabetoOriginal.add('q');alfabetoOriginal.add('r');alfabetoOriginal.add('s');alfabetoOriginal.add('t');
-		alfabetoOriginal.add('u');alfabetoOriginal.add('w');alfabetoOriginal.add('x');alfabetoOriginal.add('y');
-		alfabetoOriginal.add('z');
+		alfabetoOriginal.add('u');alfabetoOriginal.add('v');alfabetoOriginal.add('w');alfabetoOriginal.add('x');
+		alfabetoOriginal.add('y');alfabetoOriginal.add('z');
 	}
 	
 	private void setAlfabetoConPalabraClave(){
@@ -150,14 +150,15 @@ public void desencriptarDiccionario(){
 
 	}
 	
-	private void generarPalabraClave(){
+	public void generarPalabraClave(){
+		palabraClave = "";
 		Random rand = new Random();
-		int longitud = rand.nextInt((25-15)+1)+15;
+		int longitud = rand.nextInt((26-16)+1)+16;
 		int posAlfabetoOrig;
 		char charAux;
-		
+		System.out.println("Longitud: "+longitud);
 		for(int i = 0; i < longitud; i++){
-			posAlfabetoOrig = rand.nextInt(25);
+			posAlfabetoOrig = rand.nextInt(26);
 			charAux = alfabetoOriginal.get(posAlfabetoOrig);
 			if(!palabraClave.contains(Character.toString(charAux))){
 				palabraClave = palabraClave + charAux;
@@ -168,6 +169,12 @@ public void desencriptarDiccionario(){
 			
 		}
 		
+		
+		
+	}
+	
+	public String getPalabraClave(){
+		return palabraClave;
 	}
 
 	public static void main(String[] args) {
@@ -185,6 +192,24 @@ public void desencriptarDiccionario(){
 		dic.desencriptarDiccionario();
 		System.out.println(dic.textoSalida);
 		 
+	}
+
+	public void setTextoEntrada(String pTexto) {
+		textoEntrada = pTexto;
+		
+	}
+
+	public String getTextoEncriptado() {
+		return textoEncriptado;
+	}
+
+	public void setTextoEncriptado(String pTexto) {
+		textoEncriptado = pTexto;
+		
+	}
+
+	public String getTextoSalida() {
+		return textoSalida;
 	}
 
 }
