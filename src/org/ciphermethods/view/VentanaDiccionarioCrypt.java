@@ -86,9 +86,13 @@ public class VentanaDiccionarioCrypt extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         //Localizacion de la ventana
-        setLocationRelativeTo(null);
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width-w*4)/2;
+        int y = (dim.height-h)/2;
 
-        //Colocara la ventana
+        //Colocar la ventana
+        this.setLocation(x, y);
        
 		
 		
@@ -256,6 +260,8 @@ public class VentanaDiccionarioCrypt extends JFrame {
 						dic.encriptarDiccionario();
 						txtTexto.setText(dic.getTextoEncriptado());
 						txtTexto.setEditable(false);
+						btnGenerarClave.setEnabled(false);
+						txtClave.setEnabled(false);
 						btnEncriptar.setEnabled(false);
 					}
 				}

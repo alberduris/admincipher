@@ -85,7 +85,13 @@ public class VentanaDiccionarioDecrypt extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         //Localizacion de la ventana
-        setLocationRelativeTo(null);
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width+w*2)/2;
+        int y = (dim.height-h)/2;
+
+        //Colocar la ventana
+        this.setLocation(x, y);
 		
 		
 		contentPane = new JPanel();
@@ -225,6 +231,7 @@ public class VentanaDiccionarioDecrypt extends JFrame {
 						dic.desencriptarDiccionario();
 						txtTexto.setText(dic.getTextoSalida());
 						txtTexto.setEditable(false);
+						txtClave.setEnabled(false);
 						btnDesencriptar.setEnabled(false);
 					}
 				}

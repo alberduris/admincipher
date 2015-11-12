@@ -96,7 +96,7 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
         int x = (dim.width-w*4)/2;
         int y = (dim.height-h)/2;
 
-        //Colocara la ventana
+        //Colocar la ventana
         this.setLocation(x, y);
 		
 		
@@ -193,9 +193,6 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				txtTexto.setText("");
-				txtClave.setText("");
-				
 			}
 			
 		});
@@ -231,7 +228,6 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				txtTexto.setText("");
 				txtClave.setText("");
 			}
 			
@@ -338,6 +334,11 @@ public class VentanaEscitaloDeEspartaCrypt extends JFrame {
 						ede.encriptarEscitaloDeEsparta();
 						
 						txtTexto.setEditable(false);
+						btnEncriptar.setEnabled(false);
+						spinnerColumnas.setEnabled(false);
+						spinnerFilas.setEnabled(false);
+						btnGenerarClave.setEnabled(false);
+						
 						txtTexto.setText(ede.getTextoEncriptado());
 					}
 					else{

@@ -51,14 +51,14 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 	private JLabel lblColumnas;
 	private JSpinner spinnerColumnas; 
 	
-	//private JLabel lblClave;
+	
 	private JLabel lblClave;
 	private JFormattedTextField txtClave;
 	
 	private JLabel lblTexto;
 	private JTextArea txtTexto;
 	
-	private JButton btnEncriptar;
+	private JButton btnDesencriptar;
 	
 	private JDialog dialogAlerta;
 	
@@ -101,7 +101,7 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
         int x = (dim.width+w*2)/2;
         int y = (dim.height-h)/2;
 
-        //Colocara la ventana
+        //Colocar la ventana
         this.setLocation(x, y);
 		
 		contentPane = new JPanel();
@@ -196,9 +196,6 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				txtTexto.setText("");
-				txtClave.setText("");
-				
 			}
 			
 		});
@@ -234,7 +231,6 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				txtTexto.setText("");
 				txtClave.setText("");
 			}
 			
@@ -318,20 +314,35 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 	}
 	
 	private void getBtnDesencriptar(){
-		btnEncriptar = new JButton("Desencriptar");
-		btnEncriptar.setHorizontalAlignment(0);
-		btnEncriptar.setPreferredSize(new Dimension(125,40));
+		btnDesencriptar = new JButton("Desencriptar");
+		btnDesencriptar.setHorizontalAlignment(0);
+		btnDesencriptar.setPreferredSize(new Dimension(125,40));
 		
-		btnEncriptar.addActionListener(new ActionListener(){
+		btnDesencriptar.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				setFilasYColumnas();
-				ede.crearClave((int)(long)txtClave.getValue());
-				ede.setTextoEncriptado(txtTexto.getText());
-				ede.desencriptarEscitaloDeEsparta();
-				txtTexto.setText(ede.getTextoSalida());
-				txtTexto.setEditable(false);
+				
+				
+				System.out.println(txtClave.getText().length());
+				System.out.println((int) spinnerColumnas.getValue());
+				if(txtClave.getText().length() != (int) spinnerColumnas.getValue()){
+					//Si la clave no es valida (Por longitud)
+					crearDialogAlerta();
+					
+				}
+				else{
+					ede.crearClave((int)(long)txtClave.getValue());
+					ede.setTextoEncriptado(txtTexto.getText());
+					ede.desencriptarEscitaloDeEsparta();
+					txtTexto.setText(ede.getTextoSalida());
+					txtTexto.setEditable(false);
+					btnDesencriptar.setEnabled(false);
+					spinnerColumnas.setEnabled(false);
+					spinnerFilas.setEnabled(false);
+				}
+				
 				
 						
 			}
@@ -339,7 +350,7 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 		});
 		
 		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
-		panelConFlowLayout.add(btnEncriptar);
+		panelConFlowLayout.add(btnDesencriptar);
 	}
 	
 	private void crearDialogAlerta(){
@@ -356,7 +367,7 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 		
 		JLabel texto = new JLabel();
 		
-		texto.setText("Primero debes generar una clave");
+		texto.setText("La clave es errónea para esa longitud");
 		
 		JButton boton = new JButton("Cerrar");
 		
@@ -374,7 +385,7 @@ public class VentanaEscitaloDeEspartaDecrypt extends JFrame {
 		dialogAlerta.setModal(false);
 		dialogAlerta.setVisible(true);
 		dialogAlerta.setLocationRelativeTo(contentPane);
-		dialogAlerta.setTitle("Mensaje oculto");
+		dialogAlerta.setTitle("Clave errónea");
 		
 		
 		dialogAlerta.setLayout(new GridBagLayout());

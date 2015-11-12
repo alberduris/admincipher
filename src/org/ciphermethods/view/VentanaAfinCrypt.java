@@ -86,7 +86,21 @@ public class VentanaAfinCrypt extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(dimPreferida);
-        setLocationRelativeTo(null);
+		
+		//Tamaño de la ventana
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        //Localizacion de la ventana
+        int w = this.getSize().width;
+        int h = this.getSize().height;
+        int x = (dim.width-w*4)/2;
+        int y = (dim.height-h)/2;
+
+        //Colocar la ventana
+        this.setLocation(x, y);
+		
+		
+       
 		
 		
 		contentPane = new JPanel();
@@ -158,11 +172,11 @@ public class VentanaAfinCrypt extends JFrame {
 	}
 	
 	private void getComboBoxA(){
-		Integer[] valoresA = new Integer[]{1,3,5,7,9,11,13,15,17,19,21,23,25,26};
+		Integer[] valoresA = new Integer[]{1,3,5,7,9,11,15,17,19,21,23,25};
 		comboBoxA = new JComboBox<Object>(valoresA);
 	
-		comboBoxA.setMinimumSize(new Dimension(35,25));
-		comboBoxA.setPreferredSize(new Dimension(35,25));
+		comboBoxA.setMinimumSize(new Dimension(40,25));
+		comboBoxA.setPreferredSize(new Dimension(40,25));
 		comboBoxA.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 		
 		panelConFlowLayout.add(comboBoxA);
@@ -178,14 +192,14 @@ public class VentanaAfinCrypt extends JFrame {
 	}
 	
 	private void getComboBoxB(){
-		Integer[] valoresB = new Integer[27];
+		Integer[] valoresB = new Integer[26];
 		for(int i = 0; i < valoresB.length; i++){
 			valoresB[i] = i;
 		}
 		comboBoxB = new JComboBox<Object>(valoresB);
 	
-		comboBoxB.setMinimumSize(new Dimension(35,25));
-		comboBoxB.setPreferredSize(new Dimension(35,25));
+		comboBoxB.setMinimumSize(new Dimension(40,25));
+		comboBoxB.setPreferredSize(new Dimension(40,25));
 		comboBoxB.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
 	
 		
@@ -266,10 +280,13 @@ public class VentanaAfinCrypt extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				afin.setPrimeraClave((Integer)comboBoxA.getSelectedItem());
 				afin.setSegundaClave((Integer)comboBoxB.getSelectedItem());
-				afin.setTextoAEncriptar(txtTexto.getText());
+				afin.setTextoAEncriptar(txtTexto.getText().toLowerCase());
 				String textoEncriptado = afin.encriptarAfin();
 				txtTexto.setText(textoEncriptado);
 				txtTexto.setEditable(false);
+				comboBoxA.setEnabled(false);
+				comboBoxB.setEnabled(false);
+				btnEncriptar.setEnabled(false);
 				
 			}
 			
