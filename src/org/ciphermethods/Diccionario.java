@@ -177,23 +177,7 @@ public void desencriptarDiccionario(){
 		return palabraClave;
 	}
 
-	public static void main(String[] args) {
-		
-		Diccionario dic = new Diccionario();
-		
-		dic.generarPalabraClave();
-		dic.setEntrada("test definitivo del metodo diccionario pagame mi honorario xdd rima lol");
-		dic.setAlfabetoConPalabraClave();
-		dic.imprimirAlfabetoOriginal();
-		dic.imprimirAlfabetoClave();
-		System.out.println(dic.textoEntrada);
-		dic.encriptarDiccionario();
-		System.out.println(dic.textoEncriptado);
-		dic.desencriptarDiccionario();
-		System.out.println(dic.textoSalida);
-		 
-	}
-
+	
 	public void setTextoEntrada(String pTexto) {
 		textoEntrada = pTexto;
 		

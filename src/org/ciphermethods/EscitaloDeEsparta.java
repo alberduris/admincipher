@@ -183,17 +183,7 @@ public class EscitaloDeEsparta {
 	}
 	
 	
-	//Pruebas
-	private void imprimirMatriz(char[][] pMatriz){
-		
-		for(int i = 0; i < numFilas; i++){
-			for(int j = 0; j < numCols; j++){
-					System.out.print(pMatriz[j][i] + " ");
-			}
-			System.out.println();
-		}
-		
-	}
+	
 	
 	//Pruebas
 	public void imprimirMatrizFinal(){
@@ -278,15 +268,7 @@ public class EscitaloDeEsparta {
 	
 
 	public static void main(String[] args) {
-		//EscitaloDeEsparta ede = new EscitaloDeEsparta();
-		//ede.encriptarEscitaloDeEsparta();
-		
-		
-		//ede.desencriptarEscitaloDeEsparta();
-		
-		
-		
-		
+				
 		
 	}
 

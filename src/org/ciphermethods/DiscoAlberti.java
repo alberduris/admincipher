@@ -180,16 +180,5 @@ public class DiscoAlberti {
 		}
 	}
 	
-	public static void main(String[] args) {
-		DiscoAlberti dA = new DiscoAlberti();
-		dA.crearDiscoInterno("qixkvptmrdlgazenbosfchty");
-		dA.introducirClave("Ti");
-		dA.introducirMovimiento(1);
-		dA.introducirDireccion(true);
-		
-		String tx =dA.encriptar("LO LLEVO A CONOCER");
-		System.out.println(tx);
-		dA.introducirClave("Ti");
-		System.out.println(dA.desencriptar(tx));
-	}
+	
 }

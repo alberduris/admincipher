@@ -115,6 +115,12 @@ public class VentanaMonoPoli extends JFrame {
 		panelConBoxLayout.add(lblSubtitulo);
 
 	}
+	/*
+	 * La idea inicial de la aplicación era más grande y pretendemos desarrollarla hasta ese punto
+	 * inicial (o más) aunque no se hará para este trabajo concreto. Además, teníamos algunas ideas 
+	 * clasificadas como "extras" que irían "tras este botón". Esta es la razón de que este botón
+	 * exista aunque esté deshabilitado.
+	 */
 
 	private void getBtnExtras() {
 		btnExtras = new JButton("Extras");

@@ -34,7 +34,11 @@ public class Afin {
 	}
 	
 
-	
+	/**Basado en el código extraído de Stack Overflow
+	Pregunta: http://stackoverflow.com/questions/19605465/how-to-write-logic-for-affine-cipher-decryption-in-java
+	Autor: http://stackoverflow.com/users/1196603/jk1
+	Modificado por Alberto Blanco Garcés
+	**/
 	/*
 	 * post: Encripta la cadena de texto almacenada en la variable global textoEntrada
 	 * Fórmula: E(a;b)(M) = (aM + b) mod N
@@ -101,18 +105,7 @@ public class Afin {
 		textoEntrada = "";
 	}
 
-	public static void main(String[] args) {
-	    Afin afin = new Afin();
-	        
-		textoEntrada = "test mi polla en tu pared ajajaja rima tio xdd lol";
-	    String cipher = afin.encriptarAfin();
-	    String deciphered = afin.desencriptarAfin();
-	    System.out.println("Texto entrada:    " + textoEntrada);
-	    System.out.println();
-	    System.out.println("Encriptado: " + cipher);
-	    System.out.println();
-	    System.out.println("Desencriptado: " + deciphered);
-	}
+	
 
 	
 

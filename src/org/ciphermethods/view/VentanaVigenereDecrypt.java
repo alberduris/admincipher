@@ -6,24 +6,18 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
 
 import javax.swing.Box;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
 
 import org.ciphermethods.Vigenere;
 
@@ -46,8 +40,7 @@ public class VentanaVigenereDecrypt extends JFrame {
 	private JTextArea txtTexto; 
 	
 	private JButton btnEncriptar;
-	
-	private JDialog dialogAlerta;
+
 	
 	private Dimension dimPreferida = new Dimension(300,320);
 	
@@ -220,58 +213,6 @@ public class VentanaVigenereDecrypt extends JFrame {
 		
 		panelConFlowLayout.add(Box.createRigidArea(new Dimension(0,50)));
 		panelConFlowLayout.add(btnEncriptar);
-	}
-	
-	private void crearDialogAlerta(){
-		GridBagConstraints csTexto = new GridBagConstraints();
-		GridBagConstraints csTexto2 = new GridBagConstraints();
-		GridBagConstraints csBoton = new GridBagConstraints();
-		
-		csTexto.weighty = 1;
-		csTexto.gridx = 0;
-		csTexto.gridy = 0;
-		
-		csTexto2.weighty = 1;
-		csTexto2.gridx = 0;
-		csTexto2.gridy = 1;
-		
-		csBoton.weighty = 1;
-		csBoton.gridx = 0;
-		csBoton.gridy = 2;
-		
-		JLabel texto = new JLabel();
-		JLabel texto2 = new JLabel();
-		
-		texto.setText("El alfabeto disponible para encriptar es:");
-		texto2.setText("a-b-c-d-e-f-g-h-i-j-k-l-m-n-o-p-q-r-s-t-u-v-w-x-y-z");
-		
-		JButton boton = new JButton("Cerrar");
-		
-		boton.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				dialogAlerta.dispose();
-			}
-			
-		});
-		
-		dialogAlerta = new JDialog();
-		dialogAlerta.setSize(300,125);
-		dialogAlerta.setModal(false);
-		dialogAlerta.setVisible(true);
-		dialogAlerta.setLocationRelativeTo(contentPane);
-		dialogAlerta.setTitle("Alfabeto");
-		
-		
-		dialogAlerta.setLayout(new GridBagLayout());
-		dialogAlerta.getContentPane().setBackground(new Color(0xFFFFFF));
-	
-
-		dialogAlerta.add(texto,csTexto);
-		dialogAlerta.add(texto2,csTexto2);
-		dialogAlerta.add(boton,csBoton);
-		
 	}
 
 }

@@ -169,17 +169,6 @@ public class VentanaPolialfabeticos extends JFrame {
 		panelConBoxLayout.add(btnVigenere);
 	}
 	
-	private void getBtnAtbash() {
-		btnAtbash = new JButton("Método Atbash");
-		btnAtbash.setEnabled(false);
-		btnAtbash.setAlignmentX(Component.CENTER_ALIGNMENT);
-		btnAtbash.setMinimumSize(dimBtn);
-		btnAtbash.setPreferredSize(dimBtn);
-		btnAtbash.setMaximumSize(new Dimension(Short.MAX_VALUE, Short.MAX_VALUE));
-
-		panelConBoxLayout.add(Box.createRigidArea(new Dimension(0, 15)));
-		panelConBoxLayout.add(btnAtbash);
-	}
 	
 	private void getBtnAtras() {
 		btnAtras = new JButton("<");
